@@ -1,0 +1,50 @@
+<Alloy>
+	<View id="Wrapper" name="Document Details">
+		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" />
+		<ScrollView id="container">
+			<View class="group">
+				<ImageView id="file_icon"></ImageView>
+				<Label id="file_name" >Document Details</Label>
+				<Label id="file_type" />
+			</View>
+			<View class="separator"></View>
+			<View id="translate" class="group" layout="vertical">
+				<!--<Label id="combo1" >Translate From</Label>-->
+				<View id="xlate_from" class="combo">
+					<Widget src="com.orthlieb.combobox" id="xlatefrom"/>
+				</View>
+				<View id="xlate_to" class="combo">
+					<Widget src="com.orthlieb.combobox" id="xlateto"/>
+				</View>
+
+			</View>
+			<View class="separator"></View>
+			<ListView>
+				<Templates>
+					<ItemTemplate name="file" height="70">
+						<Label bindId="filename" class="filename"/>
+					</ItemTemplate>
+					<ItemTemplate name="icon_lang" height="70">
+						<ImageView bindId="icon" class="icon"/>
+						<Label bindId="language" class="filename"/>
+					</ItemTemplate>
+					<ItemTemplate name="icon_lang_flag" height="70">
+						<ImageView bindId="icon" class="icon"/>
+						<Label bindId="language" class="filename"/>
+						<ImageView bindId="flag"></ImageView>
+					</ItemTemplate>
+
+				</Templates>
+				<ListSection id="section" >
+					<!--<ListSection headerTitle="L('documents','Documents')" id="section" dataCollection="document" dataTransform="doTransform">
+					<!--<ListItem template="{template}" itemId="{item_id}" filename:text="{filename}" icon:image="{icon}"/>-->
+					<ListItem template="icon_lang" language:text="Original Version" icon:image="/icons/pdf-lg.png"/>
+
+					<!--<ListItem template="file_icon" filename:text="File 2" icon:image="/icons/pdf-lg.png"/>-->
+				</ListSection>
+			</ListView>
+		</ScrollView>
+
+	</View>
+	<View backgroundColor="grey" opacity="0.5" height="100%" width="100%"></View>
+</Alloy>
