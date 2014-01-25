@@ -1,6 +1,10 @@
 /*
  * Modifed:
  * 02 JAN 14	Added Logfile functionality
+ *
+ *
+ * Notes:
+ * Ti.FileSystem.applicationDataDirectory = file:///.../Documents/
  */
 
 var logFileName = undefined;
@@ -119,7 +123,10 @@ FileManager.prototype.logFileEntry = function(_filename, _message) {
 	}
 
 };
-
+/**
+ * Iterate through a directory
+ * @param {string} _directory Path of the directory to iterate
+ */
 FileManager.prototype.ls = function(_directory) {
 	try {
 		if (_directory !== undefined) {
@@ -129,16 +136,28 @@ FileManager.prototype.ls = function(_directory) {
 		}
 		var results = {};
 		if (directory.exists() && directory.isDirectory()) {
-			results.name = directory.name;
+			results.directory = directory.name;
 			results.nativePath = directory.nativePath;
 			results.files = [];
-			var listing = directory.getDirectoryListing();
-			Ti.API.info(listing);
-			if (listing !== null) {
-				for (var i in listing) {
-					results.files.push({
-						name : listing[i]
-					});
+			var listings = directory.getDirectoryListing();
+			Ti.API.info(listings);
+			if (listings !== null) {
+				for (var i in listings) {
+					var file = Ti.Filesystem.getFile(results.nativePath + listings[i]);
+					if (file.exists()) {
+						results.files.push({
+							name : listings[i],
+							nativePath : file.nativePath,
+							isDirectory : file.isDirectory(),
+							isFile : file.isFile(),
+							hidden : file.hidden,
+							extension : file.extension(),
+							created : file.createTimestamp(),
+							modified : file.modificationTimestamp()
+						});
+					} else {
+						Ti.API.info("File Did Not Exist:" + listings[i]);
+					}
 				}
 			}
 		}
@@ -164,13 +183,13 @@ FileManager.prototype.createDirectory = function(_directory, _baseDirectory) {
 		} else {
 			var directory = Titanium.Filesystem.getFile(_baseDirectory, _directory);
 		}
-		if(directory.exists()){
-			if(directory.isFile()){
+		if (directory.exists()) {
+			if (directory.isFile()) {
 				throw "FileManager.createDirectory.Error: Requested name exists and is a file";
-			}else{
+			} else {
 				return directory;
 			}
-		}else{
+		} else {
 			directory.createDirectory();
 			return directory;
 		}

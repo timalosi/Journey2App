@@ -146,13 +146,14 @@ if (CONFIG.url) {
 		var filename = Ti.Network.encodeURIComponent(urlarray2[urlarray2.length - i]);
 		filename += ".pdf";
 		alert("PDF will be saved to: " + filename);
-		var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, filename);
+		var file = Ti.Filesystem.getFile(Alloy.Globals.directoryPath, filename);
 		$.webview.convertToPdf({
 			filename : filename,
 			path : file.nativePath,
-			directory : Ti.Filesystem.applicationDataDirectory,
+			directory : Alloy.Globals.directoryPath,
 			papersize : 'letter'
 		});
+		Ti.App.fireEvent("document_change",{});
 
 		//Ti.Platform.openURL(currentUrl);
 	});

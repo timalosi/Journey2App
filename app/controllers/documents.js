@@ -7,11 +7,7 @@
  * @uses utilities
  */
 var APP = require("core");
-var DocumentManager = require("DocumentManager");
 var FileManager = require("FileManager");
-//var DATE = require("alloy/moment");
-//var STRING = require("alloy/string");
-//var MODEL = require("models/facebook")();
 
 var CONFIG = arguments[0];
 var SELECTED;
@@ -25,12 +21,6 @@ var refreshEngaged = false;
  */
 $.init = function() {
 	APP.log("debug", "documents.init | " + JSON.stringify(CONFIG));
-
-	//MODEL.init(CONFIG.index);
-
-	//CONFIG.feed = "http://www.facebook.com/feeds/page.php?format=json&id=" + CONFIG.userid;
-
-	//APP.openLoading();
 
 	$.populate();
 
@@ -51,50 +41,17 @@ $.init = function() {
 			APP.openSettings();
 		});
 	}
-	
+
 	//Set App Wide Listeners
-	Ti.App.addEventListener("document_change",$.populate);
+	Ti.App.addEventListener("document_change", $.populate);
 };
 
-function doClick(e) {
-	//alert("row:" + JSON.stringify(e));
-	//var item_id = e.row.item_id;
-	var item_id = e.itemId;
-	/* ListView */
-	var collect = Alloy.Collections.document;
-	var doc = collect.get(item_id).toJSON();
-	//alert(JSON.stringify(doc));
-	//var o = doc.toJSON();
-
-	//Display the Document Viewer
-	var z = Ti.UI.iOS.createDocumentViewer({
-		url : doc.path
-	});
-	//$.document_view.add(z);
-	z.show();
-
-	//alert("list click:" + JSON.stringify(e) + "\n\n" + JSON.stringify(doc));
-	//APP.addChild("document_details", {
-	//	id: item_id,
-	//});
-
-	//$.trigger("file_click", {
-	//	path : doc.path,
-	//	filename : doc.filename
-	//});
-};
 
 function doTableviewClick(e) {
 	APP.log("debug", "documents.doTableviewClick.e | " + JSON.stringify(e));
 
-	var item_id = e.rowData.id;
-	var row_type = e.rowData.row_type;
-	APP.log("debug", "documents.doTableviewClick.item_id | " + item_id);
-	/* Tableview */
-	var documentCollection = Alloy.Collections.document;
-	var doc = documentCollection.get(item_id).toJSON();
-	//Display the Document Viewer
-	var path = (row_type == "original") ? doc.path : doc.pdf_path;
+	var path = e.rowData.path;
+	APP.log("debug", "documents.doTableviewClick.path: " + path);
 	var z = Ti.UI.iOS.createDocumentViewer({
 		url : path
 	});
@@ -103,43 +60,32 @@ function doTableviewClick(e) {
 
 function doTableviewDelete(e) {
 	APP.log("debug", "documents.doTableviewDelete.e | " + JSON.stringify(e));
-	var item_id = e.rowData.id;
-	DocumentManager.deleteDocument(item_id);
+	var path = e.rowData.path;
+	var fm = new FileManager();
+	fm.deleteFile(path);
 };
-
-// assign a ListItem template based on the contents of the model
-function doTransform(model) {
-	var o = model.toJSON();
-	if (o.icon !== undefined) {
-		o.template = "file_icon";
-		o.icon = "/icons/" + o.icon;
-	} else {
-		o.template = 'file';
-	}
-	o.item_id = model.id;
-	APP.log("debug", "documents.doTransform | " + JSON.stringify(o));
-	//alert(JSON.stringify(o));
-	return o;
-}
 
 $.populate = function() {
 	//return;
 	//get a copy of the FileManager utility
 	var fm = new FileManager();
-	var files = fm.ls(Ti.Filesystem.applicationDataDirectory);
-	var docs = files.files;
-	
-	APP.log("debug", "documents.populate | " + JSON.stringify(files));
+	var results = fm.ls(Alloy.Globals.directoryPath);
+	alert("Results:" + JSON.stringify(results));
+	var docs = results.files;
+
+	APP.log("debug", "documents.populate | " + JSON.stringify(docs));
 	var rows = [];
 	for (var i in docs) {
 		APP.log("debug", "documents.populate.document | " + JSON.stringify(docs[i]));
-		var row = Alloy.createController("documents_row", {
-				//id : docs[i].alloy_id,
+		if (docs[i].isFile === true && docs[i].extension === "pdf") {
+			var row = Alloy.createController("documents_row", {
+				path : docs[i].nativePath,
 				heading : docs[i].name,
-				subHeading : "docs[i].description",
+				subHeading : new Date(docs[i].modified).toLocaleString(),
 				icon : "/icons/pdf.png",
 			}).getView();
-		rows.push(row);
+			rows.push(row);
+		}
 	}
 	$.container.setData(rows);
 };
@@ -156,4 +102,4 @@ function ptrRelease(_event) {
 
 // Kick off the init
 $.init();
- 
+
