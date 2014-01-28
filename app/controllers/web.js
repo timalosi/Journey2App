@@ -153,8 +153,15 @@ if (CONFIG.url) {
 			directory : Alloy.Globals.directoryPath,
 			papersize : 'letter'
 		});
-		Ti.App.fireEvent("document_change",{});
-
+		Ti.App.fireEvent("document_change", {});
+		var parameters = {
+			url : $.webview.url,
+			filename : filename
+		};
+		var urlItem = Alloy.createModel('url', parameters);
+		urlItem.save();
+		Ti.App.fireEvent("history_change", {});
+		APP.removeChild(false);
 		//Ti.Platform.openURL(currentUrl);
 	});
 } else {

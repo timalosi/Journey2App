@@ -1,0 +1,11 @@
+<Alloy>
+	<Collection src="url" />
+	<View id="Wrapper" name="UrlHistory">
+		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" image="data/logo.png" />
+		<View id="tableWrapper">
+			<TableView id="container" editable="true" onClick="doTableviewClick" onDelete="doTableviewDelete">
+				<!--<Widget id="ptr" src="nl.fokkezb.pullToRefresh" onRelease="ptrRelease" />-->
+			</TableView>
+		</View>
+	</View>
+</Alloy>

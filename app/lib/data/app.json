@@ -34,10 +34,10 @@
 			"tabletSupport": false
 		}, {
 			"title": "URL History",
-			"heading": "Bonjour Browser",
-			"text": "bonjour",
-			"type": "bonjour",
-			"image": "chariti",
+			"heading": "URL History",
+			"text": "urlhistory",
+			"type": "urlhistory",
+			"image": "book",
 			"tabletSupport": false
 		}
 	],
