@@ -13,9 +13,11 @@
 /**
  * Global Functions
  */
-Alloy.Globals.onResumed = function(e) {
-
+Alloy.Globals.resumeObserver = function(e) {
+	//TODO: Move to Functions
+	//TODO: Analytics
 	var args = Ti.App.getArguments();
+	alert("in resumed");
 	try {
 
 		if (args.url !== undefined) {

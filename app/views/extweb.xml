@@ -1,0 +1,26 @@
+<Alloy>
+	<View id="Wrapper" name="Web">
+		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" />
+		<View id="container" />
+		<View id="toolbar">
+			<View id="border" />
+			<View id="containerBack" class="containerwrapper">
+				<ImageView id="Back" class="button" image="/images/back.png" />
+			</View>
+			<View id="containerForward" class="containerwrapper">
+				<ImageView id="Forward" class="button" image="/images/forward.png" />
+			</View>
+			<View class="containerwrapper">
+				<View id="containerRefresh" class="containerinner">
+					<ImageView id="Refresh" class="button" image="/images/refresh.png" />
+				</View>
+				<View id="containerStop" class="containerinner">
+					<ImageView id="Stop" class="button" image="/images/stop.png" />
+				</View>
+			</View>
+			<View id="containerAction" class="containerwrapper">
+				<ImageView id="Action" class="button" image="/images/safari.png" />
+			</View>
+		</View>
+	</View>
+</Alloy>

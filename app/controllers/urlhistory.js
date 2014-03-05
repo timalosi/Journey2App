@@ -15,6 +15,8 @@ var offset = 0;
 var refreshLoading = false;
 var refreshEngaged = false;
 
+//TODO: When a duplicate URL is used ... check and don't add
+
 /**
  * Initializes the controller
  */
@@ -48,15 +50,32 @@ $.init = function() {
 function doTableviewClick(e) {
 	APP.log("debug", "urlhistory.doTableviewClick.e | " + JSON.stringify(e));
 	var item_id = e.rowData.id;
+	var index = e.row.index || 0;
 	APP.log("debug", "urlhistory.doTableviewClick.item_id | " + item_id);
 	/* Tableview */
 	var urlCollection = Alloy.Collections.url;
 	var urlItem = urlCollection.get(item_id).toJSON();
+	
+	alert(typeof urlItem);
 	//Display the Document Viewer
 	var url = urlItem.url;
 	APP.addChild("web", {
 		url : url
 	}, false, false);
+
+	if (APP.Device.isTablet) {
+		if (e.row.id == SELECTED) {
+			return;
+		} else {
+			SELECTED = item_id;
+		}
+	}
+
+	APP.addChild("extweb", {
+		id : item_id,
+		url : url,
+		index : index
+	});
 };
 
 function doTableviewDelete(e) {
@@ -65,6 +84,7 @@ function doTableviewDelete(e) {
 	var urlCollection = Alloy.Collections.url;
 	var urlItem = urlCollection.get(item_id);
 	urlItem.destroy();
+	//TODO: Refresh the URL List
 };
 
 $.populate = function() {
@@ -75,28 +95,38 @@ $.populate = function() {
 	//alert(JSON.stringify(docs));
 	APP.log("debug", "urlhistory.populate | " + JSON.stringify(urls));
 	var rows = [];
-	for (var i in urls) {
-		APP.log("debug", "urls.populate.url | " + JSON.stringify(urls[i]));
-		var row = Alloy.createController("urlhistory_row", {
-			id : urls[i].alloy_id,
-			heading : urls[i].url,
-			subHeading : urls[i].filename,
-			icon : "/icons/html.png"
-		}).getView();
-		rows.push(row);
+	if (urls.length > 0) {
+		for (var i in urls) {
+			APP.log("debug", "urls.populate.url | " + JSON.stringify(urls[i]));
+			var row = Alloy.createController("urlhistory_row", {
+				id : urls[i].alloy_id,
+				index : i,
+				heading : urls[i].url,
+				subHeading : urls[i].filename,
+				icon : "/icons/html.png"
+			}).getView();
+			rows.push(row);
+		}
 	}
 	$.container.setData(rows);
-};
+	if (APP.Device.isTablet && !SELECTED) {
+		if (urls.length > 0) {
+			SELECTED = urls[0].alloy_id;
 
-/**
- * Handles the pull-to-refresh event
- * @param {Object} _event The event
- */
-function ptrRelease(_event) {
-	$.retrieveData(true, function() {
-		_event.hide();
-	});
-}
+			APP.addChild("extweb", {
+				id : urls[0].alloy_id,
+				url : urls[0].url,
+				index : 0
+			});
+		} else {
+			APP.addChild("extweb", {
+				id : 0,
+				url : null,
+				index : 0
+			});
+		}
+	}
+};
 
 // Kick off the init
 $.init();

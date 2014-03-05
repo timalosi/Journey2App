@@ -22,8 +22,10 @@ exports.preInit = function() {
 exports.postInit = function() {
 	try {
 		//create or get reference to the directory
-
+		//TODO: Check Arguments
+		//TODO: Add observer for Resume
 		//Log Launch Analytics
+		//TODO: Detect and update environment
 		AEAnalyticsEngine.appLaunch('dev');
 	} catch(err) {
 		var msg = "Application.postInit.error:" + err;

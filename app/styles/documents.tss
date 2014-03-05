@@ -2,7 +2,7 @@
 		layout: "vertical"
 	},
 	"#tableWrapper": {
-		top: "0dp",height:"80%"
+		top: "0dp"
 	},
 	"#container": {
 		top: "0dp",

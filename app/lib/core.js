@@ -11,6 +11,10 @@
  * @uses push
  * @uses Modules.ti.cloud
  */
+/*
+ * Changes
+ * Internationalized of Default titles: "Settings", "Application"
+ */
 var Alloy = require("alloy");
 var UTIL = require("utilities");
 var HTTP = require("http");
@@ -20,17 +24,17 @@ var APP = {
 	 * Application ID
 	 * @type {String}
 	 */
-	ID: null,
+	ID : null,
 	/**
 	 * Application version
 	 * @type {String}
 	 */
-	VERSION: null,
+	VERSION : null,
 	/**
 	 * ChariTi framework version
 	 * @type {String}
 	 */
-	CVERSION: "1.2.1",
+	CVERSION : "1.2.1",
 	/**
 	 * Legal information
 	 * @type {Object}
@@ -38,23 +42,23 @@ var APP = {
 	 * @param {String} TOS Terms of Service URL
 	 * @param {String} PRIVACY Privacy Policy URL
 	 */
-	LEGAL: {
-		COPYRIGHT: null,
-		TOS: null,
-		PRIVACY: null
+	LEGAL : {
+		COPYRIGHT : null,
+		TOS : null,
+		PRIVACY : null
 	},
 	/**
 	 * URL to remote JSON configuration file
-	 * 
+	 *
 	 * **NOTE: This can be used for over-the-air (OTA) application updates.**
 	 * @type {String}
 	 */
-	ConfigurationURL: null,
+	ConfigurationURL : null,
 	/**
 	 * All the component nodes (e.g. tabs)
 	 * @type {Object}
 	 */
-	Nodes: [],
+	Nodes : [],
 	/**
 	 * Application settings as defined in JSON configuration file
 	 * @type {Object}
@@ -71,7 +75,7 @@ var APP = {
 	 * @param {Object} colors.hsb The HSB values of the primary color
 	 * @param {Boolean} useSlideMenu Whether or not to use the slide menu (alternative is tabs)
 	 */
-	Settings: null,
+	Settings : null,
 	/**
 	 * Device information
 	 * @type {Object}
@@ -89,20 +93,20 @@ var APP = {
 	 * @param {String} orientation The device orientation, either "LANDSCAPE" or "PORTRAIT"
 	 * @param {String} statusBarOrientation A Ti.UI orientation value
 	 */
-	Device: {
-		isHandheld: Alloy.isHandheld,
-		isTablet: Alloy.isTablet,
-		type: Alloy.isHandheld ? "handheld" : "tablet",
-		os: null,
-		name: null,
-		version: Ti.Platform.version,
-		versionMajor: parseInt(Ti.Platform.version.split(".")[0], 10),
-		versionMinor: parseInt(Ti.Platform.version.split(".")[1], 10),
-		width: Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth,
-		height: Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight,
-		dpi: Ti.Platform.displayCaps.dpi,
-		orientation: Ti.Gesture.orientation == Ti.UI.LANDSCAPE_LEFT || Ti.Gesture.orientation == Ti.UI.LANDSCAPE_RIGHT ? "LANDSCAPE" : "PORTRAIT",
-		statusBarOrientation: null
+	Device : {
+		isHandheld : Alloy.isHandheld,
+		isTablet : Alloy.isTablet,
+		type : Alloy.isHandheld ? "handheld" : "tablet",
+		os : null,
+		name : null,
+		version : Ti.Platform.version,
+		versionMajor : parseInt(Ti.Platform.version.split(".")[0], 10),
+		versionMinor : parseInt(Ti.Platform.version.split(".")[1], 10),
+		width : Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth,
+		height : Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight,
+		dpi : Ti.Platform.displayCaps.dpi,
+		orientation : Ti.Gesture.orientation == Ti.UI.LANDSCAPE_LEFT || Ti.Gesture.orientation == Ti.UI.LANDSCAPE_RIGHT ? "LANDSCAPE" : "PORTRAIT",
+		statusBarOrientation : null
 	},
 	/**
 	 * Network status and information
@@ -110,121 +114,121 @@ var APP = {
 	 * @param {String} type Network type name
 	 * @param {Boolean} online Whether the device is connected to a network
 	 */
-	Network: {
-		type: Ti.Network.networkTypeName,
-		online: Ti.Network.online
+	Network : {
+		type : Ti.Network.networkTypeName,
+		online : Ti.Network.online
 	},
 	/**
 	 * Current controller view stack index
 	 * @type {Number}
 	 */
-	currentStack: -1,
+	currentStack : -1,
 	/**
 	 * The previous screen in the hierarchy
 	 * @type {Object}
 	 */
-	previousScreen: null,
+	previousScreen : null,
 	/**
 	 * The view stack for controllers
 	 * @type {Array}
 	 */
-	controllerStacks: [],
+	controllerStacks : [],
 	/**
 	 * The view stack for modals
 	 * @type {Array}
 	 */
-	modalStack: [],
+	modalStack : [],
 	/**
 	 * Whether or not the current view has a tablet layout
 	 * @type {Boolean}
 	 */
-	hasDetail: false,
+	hasDetail : false,
 	/**
 	 * Current detail view stack index
 	 * @type {Number}
 	 */
-	currentDetailStack: -1,
+	currentDetailStack : -1,
 	/**
 	 * The previous detail screen in the hierarchy
 	 * @type {Object}
 	 */
-	previousDetailScreen: null,
+	previousDetailScreen : null,
 	/**
 	 * The view stack for detail views
 	 * @type {Array}
 	 */
-	detailStacks: [],
+	detailStacks : [],
 	/**
 	 * The view stack for master views
 	 * @type {Array}
 	 */
-	Master: [],
+	Master : [],
 	/**
 	 * The view stack for detail views
 	 * @type {Array}
 	 */
-	Detail: [],
+	Detail : [],
 	/**
 	 * The main app window
 	 * @type {Object}
 	 */
-	MainWindow: null,
+	MainWindow : null,
 	/**
 	 * The global view all screen controllers get added to
 	 * @type {Object}
 	 */
-	GlobalWrapper: null,
+	GlobalWrapper : null,
 	/**
 	 * The global view all content screen controllers get added to
 	 * @type {Object}
 	 */
-	ContentWrapper: null,
+	ContentWrapper : null,
 	/**
 	 * Holder for ACS cloud module
 	 * @type {Object}
 	 */
-	ACS: null,
+	ACS : null,
 	/**
 	 * The loading view
 	 * @type {Object}
 	 */
-	Loading: Alloy.createWidget("com.mcongrove.loading").getView(),
+	Loading : Alloy.createWidget("com.mcongrove.loading").getView(),
 	/**
 	 * Whether or not to cancel the loading screen open because it's already open
 	 * @type {Boolean}
 	 */
-	cancelLoading: false,
+	cancelLoading : false,
 	/**
 	 * Whether or not the loading screen is open
 	 * @type {Boolean}
 	 */
-	loadingOpen: false,
+	loadingOpen : false,
 	/**
 	 * Tabs widget
 	 * @type {Object}
 	 */
-	Tabs: null,
+	Tabs : null,
 	/**
 	 * Slide Menu widget
 	 * @type {Object}
 	 */
-	SlideMenu: null,
+	SlideMenu : null,
 	/**
 	 * Whether or not the slide menu is open
 	 * @type {Boolean}
 	 */
-	SlideMenuOpen: false,
+	SlideMenuOpen : false,
 	/**
 	 * Whether or not the slide menu is engaged
-	 * 
+	 *
 	 * **NOTE: Turning this false temporarily disables the slide menu**
 	 * @type {Boolean}
 	 */
-	SlideMenuEngaged: true,
+	SlideMenuEngaged : true,
 	/**
 	 * Initializes the application
 	 */
-	init: function() {
+	init : function() {
 		Ti.API.debug("APP.init");
 
 		// Global system Events
@@ -234,7 +238,7 @@ var APP = {
 		Ti.App.addEventListener("close", APP.exitObserver);
 		Ti.App.addEventListener("resumed", APP.resumeObserver);
 
-		if(OS_ANDROID) {
+		if (OS_ANDROID) {
 			APP.MainWindow.addEventListener("androidback", APP.backButtonObserver);
 		}
 
@@ -274,16 +278,16 @@ var APP = {
 	/**
 	 * Determines the device characteristics
 	 */
-	determineDevice: function() {
-		if(OS_IOS) {
+	determineDevice : function() {
+		if (OS_IOS) {
 			APP.Device.os = "IOS";
 
-			if(Ti.Platform.osname.toUpperCase() == "IPHONE") {
+			if (Ti.Platform.osname.toUpperCase() == "IPHONE") {
 				APP.Device.name = "IPHONE";
-			} else if(Ti.Platform.osname.toUpperCase() == "IPAD") {
+			} else if (Ti.Platform.osname.toUpperCase() == "IPAD") {
 				APP.Device.name = "IPAD";
 			}
-		} else if(OS_ANDROID) {
+		} else if (OS_ANDROID) {
 			APP.Device.os = "ANDROID";
 
 			APP.Device.name = Ti.Platform.model.toUpperCase();
@@ -296,7 +300,7 @@ var APP = {
 	/**
 	 * Setup the database bindings
 	 */
-	setupDatabase: function() {
+	setupDatabase : function() {
 		Ti.API.debug("APP.setupDatabase");
 
 		var db = Ti.Database.open("ChariTi");
@@ -307,10 +311,10 @@ var APP = {
 		// Fill the log table with empty rows that we can 'update', providing a max row limit
 		var data = db.execute("SELECT time FROM log;");
 
-		if(data.rowCount === 0) {
+		if (data.rowCount === 0) {
 			db.execute("BEGIN TRANSACTION;");
 
-			for(var i = 0; i < 100; i++) {
+			for (var i = 0; i < 100; i++) {
 				db.execute("INSERT INTO log VALUES (" + i + ", \"\", \"\");");
 			}
 
@@ -323,7 +327,7 @@ var APP = {
 	/**
 	 * Drops the entire database
 	 */
-	dropDatabase: function() {
+	dropDatabase : function() {
 		Ti.API.debug("APP.dropDatabase");
 
 		var db = Ti.Database.open("ChariTi");
@@ -332,12 +336,12 @@ var APP = {
 	/**
 	 * Loads in the appropriate controller and config data
 	 */
-	loadContent: function() {
+	loadContent : function() {
 		APP.log("debug", "APP.loadContent");
 
 		var contentFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "app.json");
 
-		if(!contentFile.exists()) {
+		if (!contentFile.exists()) {
 			contentFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "data/app.json");
 		}
 
@@ -351,7 +355,7 @@ var APP = {
 
 			contentFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "data/app.json");
 
-			if(contentFile.exists()) {
+			if (contentFile.exists()) {
 				content = contentFile.read();
 				data = JSON.parse(content.text);
 			} else {
@@ -366,65 +370,65 @@ var APP = {
 		APP.ID = data.id;
 		APP.VERSION = data.version;
 		APP.LEGAL = {
-			COPYRIGHT: data.legal.copyright,
-			TOS: data.legal.terms,
-			PRIVACY: data.legal.privacy
+			COPYRIGHT : data.legal.copyright,
+			TOS : data.legal.terms,
+			PRIVACY : data.legal.privacy
 		};
 
 		APP.ConfigurationURL = data.configurationUrl && data.configurationUrl.length > 10 ? data.configurationUrl : false;
 		APP.Settings = data.settings;
 		APP.Nodes = data.tabs;
 
-		for(var i = 0, x = APP.Nodes.length; i < x; i++) {
+		for (var i = 0, x = APP.Nodes.length; i < x; i++) {
 			APP.Nodes[i].index = i;
 		}
 
-		if(typeof APP.Settings.useSlideMenu == "undefined") {
+		if ( typeof APP.Settings.useSlideMenu == "undefined") {
 			APP.Settings.useSlideMenu = false;
 		}
 
 		APP.Settings.colors.hsb = {
-			primary: UTIL.hexToHsb(APP.Settings.colors.primary),
-			secondary: UTIL.hexToHsb(APP.Settings.colors.secondary)
+			primary : UTIL.hexToHsb(APP.Settings.colors.primary),
+			secondary : UTIL.hexToHsb(APP.Settings.colors.secondary)
 		};
 
 		APP.Settings.colors.theme = APP.Settings.colors.hsb.primary.b < 65 ? "dark" : "light";
 
-		if(OS_IOS) {
+		if (OS_IOS) {
 			APP.MainWindow.statusBarStyle = APP.Settings.colors.theme == "dark" ? Ti.UI.iPhone.StatusBar.LIGHT_CONTENT : Ti.UI.iPhone.StatusBar.DEFAULT;
 		}
 	},
 	/**
 	 * Builds out the tab group
 	 */
-	build: function() {
+	build : function() {
 		APP.log("debug", "APP.build");
 
 		var nodes = [];
 		var imageFolder = !APP.Settings.useSlideMenu && APP.Settings.colors.theme == "light" ? "/icons/black/" : "/icons/white/";
 		var hasMenuHeaders = false;
 
-		for(var i = 0, x = APP.Nodes.length; i < x; i++) {
+		for (var i = 0, x = APP.Nodes.length; i < x; i++) {
 			nodes.push({
-				id: i,
-				title: APP.Nodes[i].title,
-				image: UTIL.fileExists(imageFolder + APP.Nodes[i].image + ".png") ? imageFolder + APP.Nodes[i].image + ".png" : null,
-				controller: APP.Nodes[i].type.toLowerCase(),
-				menuHeader: APP.Nodes[i].menuHeader
+				id : i,
+				title : APP.Nodes[i].title,
+				image : UTIL.fileExists(imageFolder + APP.Nodes[i].image + ".png") ? imageFolder + APP.Nodes[i].image + ".png" : null,
+				controller : APP.Nodes[i].type.toLowerCase(),
+				menuHeader : APP.Nodes[i].menuHeader
 			});
 
-			if(APP.Settings.useSlideMenu && APP.Nodes[i].menuHeader) {
+			if (APP.Settings.useSlideMenu && APP.Nodes[i].menuHeader) {
 				hasMenuHeaders = true;
 			}
 		}
 
-		if(APP.Settings.useSlideMenu) {
+		if (APP.Settings.useSlideMenu) {
 			// Add the Settings tab
 			nodes.push({
-				id: "settings",
-				title: "Settings",
-				image: "/icons/white/settings.png",
-				menuHeader: hasMenuHeaders ? "Application" : null
+				id : "settings",
+				title : L("titleSettings", "Settings"),
+				image : "/icons/white/settings.png",
+				menuHeader : hasMenuHeaders ? L("titleApplication", "Application") : null
 			});
 
 			APP.buildMenu(nodes);
@@ -436,16 +440,16 @@ var APP = {
 	 * Builds a TabGroup
 	 * @param {Array} _nodes The items (tabs) to build
 	 */
-	buildTabs: function(_nodes) {
+	buildTabs : function(_nodes) {
 		APP.log("debug", "APP.buildTabs");
 
 		APP.Tabs.init({
-			nodes: _nodes,
-			more: APP.Settings.colors.theme == "dark" ? "/icons/white/more.png" : "/icons/black/more.png",
-			color: {
-				background: APP.Settings.colors.primary,
-				active: APP.Settings.colors.secondary,
-				text: APP.Settings.colors.theme == "dark" ? "#FFF" : "#000"
+			nodes : _nodes,
+			more : APP.Settings.colors.theme == "dark" ? "/icons/white/more.png" : "/icons/black/more.png",
+			color : {
+				background : APP.Settings.colors.primary,
+				active : APP.Settings.colors.secondary,
+				text : APP.Settings.colors.theme == "dark" ? "#FFF" : "#000"
 			}
 		});
 
@@ -457,14 +461,14 @@ var APP = {
 	 * Builds a slide menu
 	 * @param {Array} _nodes The items (menu nodes) to build
 	 */
-	buildMenu: function(_nodes) {
+	buildMenu : function(_nodes) {
 		APP.log("debug", "APP.buildMenu");
 
 		APP.SlideMenu.init({
-			nodes: _nodes,
-			color: {
-				headingBackground: APP.Settings.colors.primary,
-				headingText: APP.Settings.colors.theme == "dark" ? "#FFF" : "#000"
+			nodes : _nodes,
+			color : {
+				headingBackground : APP.Settings.colors.primary,
+				headingText : APP.Settings.colors.theme == "dark" ? "#FFF" : "#000"
 			}
 		});
 
@@ -480,10 +484,10 @@ var APP = {
 
 		// Listen for gestures on the main window to open/close the slide menu
 		APP.GlobalWrapper.addEventListener("swipe", function(_event) {
-			if(APP.SlideMenuEngaged) {
-				if(_event.direction == "right") {
+			if (APP.SlideMenuEngaged) {
+				if (_event.direction == "right") {
 					APP.openMenu();
-				} else if(_event.direction == "left") {
+				} else if (_event.direction == "left") {
 					APP.closeMenu();
 				}
 			}
@@ -492,7 +496,7 @@ var APP = {
 	/**
 	 * Re-builds the app with newly downloaded JSON configration file
 	 */
-	rebuild: function() {
+	rebuild : function() {
 		APP.log("debug", "APP.rebuild");
 
 		APP.SlideMenu.clear();
@@ -526,7 +530,7 @@ var APP = {
 	/**
 	 * Kicks off the newly re-built application
 	 */
-	rebuildRestart: function() {
+	rebuildRestart : function() {
 		Ti.API.debug("APP.rebuildRestart");
 
 		APP.setupDatabase();
@@ -537,13 +541,13 @@ var APP = {
 	/**
 	 * Updates the app from a remote source
 	 */
-	update: function() {
+	update : function() {
 		require("update").init();
 	},
 	/**
 	 * Set up ACS
 	 */
-	initACS: function() {
+	initACS : function() {
 		APP.log("debug", "APP.initACS");
 
 		APP.ACS = require("ti.cloud");
@@ -551,10 +555,10 @@ var APP = {
 	/**
 	 * Set up push notifications
 	 */
-	initPush: function() {
+	initPush : function() {
 		APP.log("debug", "APP.initPush");
 
-		if(APP.Settings.notifications.enabled) {
+		if (APP.Settings.notifications.enabled) {
 			require("push").init();
 		}
 	},
@@ -562,8 +566,8 @@ var APP = {
 	 * Handles the click event on a tab
 	 * @param {Object} _event The event
 	 */
-	handleTabClick: function(_event) {
-		if(typeof _event.source.id !== "undefined" && typeof _event.source.id == "number") {
+	handleTabClick : function(_event) {
+		if ( typeof _event.source.id !== "undefined" && typeof _event.source.id == "number") {
 			APP.handleNavigation(_event.source.id);
 		}
 	},
@@ -571,12 +575,12 @@ var APP = {
 	 * Handles the click event on a menu item
 	 * @param {Object} _event The event
 	 */
-	handleMenuClick: function(_event) {
-		if(typeof _event.row.id !== "undefined" && typeof _event.row.id == "number") {
+	handleMenuClick : function(_event) {
+		if ( typeof _event.row.id !== "undefined" && typeof _event.row.id == "number") {
 			APP.closeSettings();
 
 			APP.handleNavigation(_event.row.id);
-		} else if(typeof _event.row.id !== "undefined" && _event.row.id == "settings") {
+		} else if ( typeof _event.row.id !== "undefined" && _event.row.id == "settings") {
 			APP.openSettings();
 		}
 
@@ -586,15 +590,15 @@ var APP = {
 	 * Global event handler to change screens
 	 * @param {String} _id The ID (index) of the tab being opened
 	 */
-	handleNavigation: function(_id) {
+	handleNavigation : function(_id) {
 		APP.log("debug", "APP.handleNavigation | " + APP.Nodes[_id].type);
 
 		// Requesting same screen as we're on
-		if(_id == APP.currentStack) {
+		if (_id == APP.currentStack) {
 			// Do nothing
 			return;
 		} else {
-			if(APP.Settings.useSlideMenu) {
+			if (APP.Settings.useSlideMenu) {
 				// Select the row for the requested item
 				APP.SlideMenu.setIndex(_id);
 			} else {
@@ -609,14 +613,14 @@ var APP = {
 			APP.currentStack = _id;
 
 			// Create new controller stack if it doesn't exist
-			if(typeof APP.controllerStacks[_id] === "undefined") {
+			if ( typeof APP.controllerStacks[_id] === "undefined") {
 				APP.controllerStacks[_id] = [];
 			}
 
-			if(APP.Device.isTablet) {
+			if (APP.Device.isTablet) {
 				APP.currentDetailStack = _id;
 
-				if(typeof APP.detailStacks[_id] === "undefined") {
+				if ( typeof APP.detailStacks[_id] === "undefined") {
 					APP.detailStacks[_id] = [];
 				}
 			}
@@ -631,12 +635,12 @@ var APP = {
 			APP.hasDetail = false;
 			APP.previousDetailScreen = null;
 
-			if(controllerStack.length > 0) {
+			if (controllerStack.length > 0) {
 				// Retrieve the last screen
-				if(APP.Device.isTablet) {
+				if (APP.Device.isTablet) {
 					screen = controllerStack[0];
 
-					if(screen.type == "tablet") {
+					if (screen.type == "tablet") {
 						APP.hasDetail = true;
 					}
 				} else {
@@ -645,20 +649,20 @@ var APP = {
 
 				// Tell the parent screen it was added to the window
 				/*
-				if(controllerStack[0].type == "tablet") {
-					controllerStack[0].fireEvent("APP:tabletScreenAdded");
-				} else {
-					controllerStack[0].fireEvent("APP:screenAdded");
-				}
-				*/
+				 if(controllerStack[0].type == "tablet") {
+				 controllerStack[0].fireEvent("APP:tabletScreenAdded");
+				 } else {
+				 controllerStack[0].fireEvent("APP:screenAdded");
+				 }
+				 */
 			} else {
 				// Create a new screen
 				var type = APP.Nodes[_id].type.toLowerCase();
 				var tabletSupport = APP.Nodes[_id].tabletSupport;
 
 				// TODO: Remove this. Find other way to determine if tablet version is available
-				if(APP.Device.isTablet) {
-					if(tabletSupport) {
+				if (APP.Device.isTablet) {
+					if (tabletSupport) {
 						type = "tablet";
 						APP.hasDetail = true;
 					} else {
@@ -685,12 +689,12 @@ var APP = {
 
 				// Tell the screen it was added to the window
 				/*
-				if(screen.type == "tablet") {
-					screen.fireEvent("APP:tabletScreenAdded");
-				} else {
-					screen.fireEvent("APP:screenAdded");
-				}
-				*/
+				 if(screen.type == "tablet") {
+				 screen.fireEvent("APP:tabletScreenAdded");
+				 } else {
+				 screen.fireEvent("APP:screenAdded");
+				 }
+				 */
 			}
 
 			// Add the screen to the window
@@ -707,14 +711,14 @@ var APP = {
 	 * @param {Boolean} _modal Whether this is for the modal stack
 	 * @param {Boolean} _sibling Whether this is a sibling view
 	 */
-	addChild: function(_controller, _params, _modal, _sibling) {
+	addChild : function(_controller, _params, _modal, _sibling) {
 		var stack;
 
 		// Determine if stack is associated with a tab
-		if(_modal) {
+		if (_modal) {
 			stack = APP.modalStack;
 		} else {
-			if(APP.Device.isHandheld || !APP.hasDetail) {
+			if (APP.Device.isHandheld || !APP.hasDetail) {
 				stack = APP.controllerStacks[APP.currentStack];
 			} else {
 				stack = APP.detailStacks[APP.currentDetailStack];
@@ -724,7 +728,7 @@ var APP = {
 		// Create the new screen controller
 		var screen = Alloy.createController(_controller, _params).getView();
 
-		if(_sibling) {
+		if (_sibling) {
 			stack.pop();
 		}
 
@@ -732,7 +736,7 @@ var APP = {
 		stack.push(screen);
 
 		// Add the screen to the window
-		if(APP.Device.isHandheld || !APP.hasDetail || _modal) {
+		if (APP.Device.isHandheld || !APP.hasDetail || _modal) {
 			APP.addScreen(screen);
 		} else {
 			APP.addDetailScreen(screen);
@@ -742,13 +746,13 @@ var APP = {
 	 * Removes a child screen
 	 * @param {Boolean} _modal Removes the child from the modal stack
 	 */
-	removeChild: function(_modal) {
+	removeChild : function(_modal) {
 		var stack;
 
-		if(_modal) {
+		if (_modal) {
 			stack = APP.modalStack;
 		} else {
-			if(APP.Device.isTablet && APP.hasDetail) {
+			if (APP.Device.isTablet && APP.hasDetail) {
 				stack = APP.detailStacks[APP.currentDetailStack];
 			} else {
 				stack = APP.controllerStacks[APP.currentStack];
@@ -761,17 +765,17 @@ var APP = {
 
 		stack.pop();
 
-		if(stack.length === 0) {
+		if (stack.length === 0) {
 			previousStack = APP.controllerStacks[APP.currentStack];
 
-			if(APP.Device.isHandheld || !APP.hasDetail) {
+			if (APP.Device.isHandheld || !APP.hasDetail) {
 				previousScreen = previousStack[previousStack.length - 1];
 
 				APP.addScreen(previousScreen);
 			} else {
 				previousScreen = previousStack[0];
 
-				if(_modal) {
+				if (_modal) {
 					APP.addScreen(previousScreen);
 				} else {
 					APP.addDetailScreen(previousScreen);
@@ -780,10 +784,10 @@ var APP = {
 		} else {
 			previousScreen = stack[stack.length - 1];
 
-			if(APP.Device.isHandheld || !APP.hasDetail) {
+			if (APP.Device.isHandheld || !APP.hasDetail) {
 				APP.addScreen(previousScreen);
 			} else {
-				if(_modal) {
+				if (_modal) {
 					APP.addScreen(previousScreen);
 				} else {
 					APP.addDetailScreen(previousScreen);
@@ -795,10 +799,10 @@ var APP = {
 	 * Removes all children screens
 	 * @param {Boolean} _modal Removes all children from the stack
 	 */
-	removeAllChildren: function(_modal) {
+	removeAllChildren : function(_modal) {
 		var stack = _modal ? APP.modalStack : APP.controllerStacks[APP.currentStack];
 
-		for(var i = stack.length - 1; i > 0; i--) {
+		for (var i = stack.length - 1; i > 0; i--) {
 			stack.pop();
 		}
 
@@ -808,11 +812,11 @@ var APP = {
 	 * Global function to add a screen
 	 * @param {Object} _screen The screen to add
 	 */
-	addScreen: function(_screen) {
-		if(_screen) {
+	addScreen : function(_screen) {
+		if (_screen) {
 			APP.ContentWrapper.add(_screen);
 
-			if(APP.previousScreen) {
+			if (APP.previousScreen) {
 				APP.removeScreen(APP.previousScreen);
 			}
 
@@ -823,8 +827,8 @@ var APP = {
 	 * Global function to remove a screen
 	 * @param {Object} _screen The screen to remove
 	 */
-	removeScreen: function(_screen) {
-		if(_screen) {
+	removeScreen : function(_screen) {
+		if (_screen) {
 			APP.ContentWrapper.remove(_screen);
 
 			APP.previousScreen = null;
@@ -836,14 +840,14 @@ var APP = {
 	 * @param {Object} _params An optional dictionary of parameters to pass to the controller
 	 * @param {Object} _wrapper The parent wrapper screen to fire events to
 	 */
-	addMasterScreen: function(_controller, _params, _wrapper) {
+	addMasterScreen : function(_controller, _params, _wrapper) {
 		var screen = Alloy.createController(_controller, _params).getView();
 
 		/*
-		_wrapper.addEventListener("APP:tabletScreenAdded", function(_event) {
-			screen.fireEvent("APP:screenAdded");
-		});
-		*/
+		 _wrapper.addEventListener("APP:tabletScreenAdded", function(_event) {
+		 screen.fireEvent("APP:screenAdded");
+		 });
+		 */
 
 		APP.Master[APP.currentStack].add(screen);
 	},
@@ -851,14 +855,14 @@ var APP = {
 	 * Adds a screen to the Detail window
 	 * @param {Object} _screen The screen to add
 	 */
-	addDetailScreen: function(_screen) {
-		if(_screen) {
+	addDetailScreen : function(_screen) {
+		if (_screen) {
 			APP.Detail[APP.currentStack].add(_screen);
 
-			if(APP.previousDetailScreen && APP.previousDetailScreen != _screen) {
+			if (APP.previousDetailScreen && APP.previousDetailScreen != _screen) {
 				var pop = true;
 
-				if(APP.detailStacks[APP.currentDetailStack][0].type == "PARENT" && _screen.type != "PARENT") {
+				if (APP.detailStacks[APP.currentDetailStack][0].type == "PARENT" && _screen.type != "PARENT") {
 					pop = false;
 				}
 
@@ -873,13 +877,13 @@ var APP = {
 	 * @param {Object} _screen The screen to remove
 	 * @param {Boolean} _pop Whether to pop the item off the controller stack
 	 */
-	removeDetailScreen: function(_screen, _pop) {
-		if(_screen) {
+	removeDetailScreen : function(_screen, _pop) {
+		if (_screen) {
 			APP.Detail[APP.currentStack].remove(_screen);
 
 			APP.previousDetailScreen = null;
 
-			if(_pop) {
+			if (_pop) {
 				var stack = APP.detailStacks[APP.currentDetailStack];
 
 				stack.splice(0, stack.length - 1);
@@ -889,7 +893,7 @@ var APP = {
 	/**
 	 * Opens the Settings window
 	 */
-	openSettings: function() {
+	openSettings : function() {
 		APP.log("debug", "APP.openSettings");
 
 		APP.addChild("settings", {}, true);
@@ -897,16 +901,16 @@ var APP = {
 	/**
 	 * Closes all non-tab stacks
 	 */
-	closeSettings: function() {
-		if(APP.modalStack.length > 0) {
+	closeSettings : function() {
+		if (APP.modalStack.length > 0) {
 			APP.removeChild(true);
 		}
 	},
 	/**
 	 * Toggles the Slide Menu
 	 */
-	toggleMenu: function(_position) {
-		if(APP.SlideMenuOpen) {
+	toggleMenu : function(_position) {
+		if (APP.SlideMenuOpen) {
 			APP.closeMenu();
 		} else {
 			APP.openMenu();
@@ -915,13 +919,13 @@ var APP = {
 	/**
 	 * Opens the Slide Menu
 	 */
-	openMenu: function() {
+	openMenu : function() {
 		APP.SlideMenu.Wrapper.left = "0dp";
 
 		APP.GlobalWrapper.animate({
-			left: "200dp",
-			duration: 250,
-			curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			left : "200dp",
+			duration : 250,
+			curve : Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 		});
 
 		APP.SlideMenuOpen = true;
@@ -929,11 +933,11 @@ var APP = {
 	/**
 	 * Closes the Slide Menu
 	 */
-	closeMenu: function() {
+	closeMenu : function() {
 		APP.GlobalWrapper.animate({
-			left: "0dp",
-			duration: 250,
-			curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			left : "0dp",
+			duration : 250,
+			curve : Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 		});
 
 		APP.SlideMenuOpen = false;
@@ -941,11 +945,11 @@ var APP = {
 	/**
 	 * Shows the loading screen
 	 */
-	openLoading: function() {
+	openLoading : function() {
 		APP.cancelLoading = false;
 
 		setTimeout(function() {
-			if(!APP.cancelLoading) {
+			if (!APP.cancelLoading) {
 				APP.loadingOpen = true;
 
 				APP.GlobalWrapper.add(APP.Loading);
@@ -955,10 +959,10 @@ var APP = {
 	/**
 	 * Closes the loading screen
 	 */
-	closeLoading: function() {
+	closeLoading : function() {
 		APP.cancelLoading = true;
 
-		if(APP.loadingOpen) {
+		if (APP.loadingOpen) {
 			APP.GlobalWrapper.remove(APP.Loading);
 
 			APP.loadingOpen = false;
@@ -969,7 +973,7 @@ var APP = {
 	 * @param {String} _severity A severity type (debug, error, info, log, trace, warn)
 	 * @param {String} _text The text to log
 	 */
-	log: function(_severity, _text) {
+	log : function(_severity, _text) {
 		switch(_severity.toLowerCase()) {
 			case "debug":
 				Ti.API.debug(_text);
@@ -1003,13 +1007,13 @@ var APP = {
 	/**
 	 * Sends the log files via e-mail dialog
 	 */
-	logSend: function() {
+	logSend : function() {
 		var db = Ti.Database.open("ChariTi");
 		var data = db.execute("SELECT * FROM log WHERE message != \"\" ORDER BY time DESC;");
 
 		var log = "\n\n=====\n\n" + APP.ID + " " + APP.VERSION + " (" + APP.CVERSION + ")\n" + APP.Device.os + " " + APP.Device.version + " (" + APP.Device.name + ") " + Ti.Platform.locale + "\n\n";
 
-		while(data.isValidRow()) {
+		while (data.isValidRow()) {
 			log += "[" + data.fieldByName("type") + "] " + data.fieldByName("message") + "\n";
 
 			data.next();
@@ -1021,12 +1025,12 @@ var APP = {
 		db.close();
 
 		var email = Ti.UI.createEmailDialog({
-			barColor: APP.Settings.colors.primary,
-			subject: "Application Log",
-			messageBody: log
+			barColor : APP.Settings.colors.primary,
+			subject : "Application Log",
+			messageBody : log
 		});
 
-		if(email.isSupported) {
+		if (email.isSupported) {
 			email.open();
 		}
 	},
@@ -1034,10 +1038,10 @@ var APP = {
 	 * Global orientation event handler
 	 * @param {Object} _event Standard Titanium event callback
 	 */
-	orientationObserver: function(_event) {
+	orientationObserver : function(_event) {
 		APP.log("debug", "APP.orientationObserver");
 
-		if(APP.Device.statusBarOrientation && APP.Device.statusBarOrientation == _event.orientation) {
+		if (APP.Device.statusBarOrientation && APP.Device.statusBarOrientation == _event.orientation) {
 			return;
 		}
 
@@ -1051,7 +1055,7 @@ var APP = {
 	 * Global network event handler
 	 * @param {Object} _event Standard Titanium event callback
 	 */
-	networkObserver: function(_event) {
+	networkObserver : function(_event) {
 		APP.log("debug", "APP.networkObserver");
 
 		APP.Network.type = _event.networkTypeName;
@@ -1063,43 +1067,44 @@ var APP = {
 	 * Exit event observer
 	 * @param {Object} _event Standard Titanium event callback
 	 */
-	exitObserver: function(_event) {
+	exitObserver : function(_event) {
 		APP.log("debug", "APP.exitObserver");
-		if(Alloy.Globals.onPause !== undefined){
-			Alloy.Globals.onPause(_event);
+		Ti.App.fireEvent("APP:orientationChange");
+		if (Alloy.Globals.exitObserver !== undefined) {
+			Alloy.Globals.exitObserver(_event);
 		}
 	},
 	/**
 	 * Resume event observer
 	 * @param {Object} _event Standard Titanium event callback
 	 */
-	resumeObserver: function(_event) {
+	resumeObserver : function(_event) {
 		APP.log("debug", "APP.resumeObserver");
-		if(Alloy.Globals.onResumed !== undefined){
-			Alloy.Globals.onResumed(_event);
+		if (Alloy.Globals.resumeObserver !== undefined) {
+			Alloy.Globals.resumeObserver(_event);
 		}
 	},
 	/**
 	 * Back button observer
 	 * @param {Object} _event Standard Titanium event callback
 	 */
-	backButtonObserver: function(_event) {
+	backButtonObserver : function(_event) {
 		APP.log("debug", "APP.backButtonObserver");
 
-		if(APP.modalStack.length > 0) {
+		if (APP.modalStack.length > 0) {
 			APP.removeChild(true);
 
 			return;
 		} else {
 			var stack;
 
-			if(APP.Device.isHandheld || !APP.hasDetail) {
+			if (APP.Device.isHandheld || !APP.hasDetail) {
 				stack = APP.controllerStacks[APP.currentStack];
 			} else {
 				stack = APP.detailStacks[APP.currentDetailStack];
 			}
 
-			if(stack.length > 1) {
+			if (stack.length > 1) {
 				APP.removeChild();
 			} else {
 				APP.MainWindow.close();
@@ -1108,4 +1113,4 @@ var APP = {
 	}
 };
 
-module.exports = APP;
+module.exports = APP; 

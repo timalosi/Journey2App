@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="language">en-us</string>
+	<string name="main_window">FileAppTemplate</string>
+	<string name="cancel">Cancel</string>
+	<string name="titleSettings">Settings</string>
+	<string name="titleApplication">Application</string>
+</resources>

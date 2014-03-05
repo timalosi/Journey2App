@@ -4,11 +4,12 @@
  * @class Controllers.facebook.row
  * @uses core
  */
-var APP = require("core");
+//var APP = require("core");
 
 var CONFIG = arguments[0] || {};
 
 $.Wrapper.path = CONFIG.path || 0;
+$.Wrapper.index = CONFIG.index || 0;
 $.heading.text = CONFIG.heading || "";
 $.subHeading.text = CONFIG.subHeading || "";
 $.icon.image = CONFIG.icon || "";

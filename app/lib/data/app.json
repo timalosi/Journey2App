@@ -31,14 +31,14 @@
 			"text": "translate documents",
 			"type": "documents",
 			"image": "chariti",
-			"tabletSupport": false
+			"tabletSupport": true
 		}, {
 			"title": "URL History",
 			"heading": "URL History",
 			"text": "urlhistory",
 			"type": "urlhistory",
 			"image": "book",
-			"tabletSupport": false
+			"tabletSupport": true
 		}
 	],
 	"examples": []
