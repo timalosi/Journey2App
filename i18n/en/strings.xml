@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="language">en-us</string>
-	<string name="main_window">FileAppTemplate</string>
 	<string name="cancel">Cancel</string>
+	<string name="ok">OK</string>
+	<string name="go">Go</string>
+	<string name="or">or</string>
+	<string name="save">Save</string>
+	<string name="letter">Letter</string>
+	<string name="a4">A4</string>
+	<string name="acknowledged">Acknowledged</string>
+	<string name="application">Go PDF</string>
+	<string name="titlePDFDocuments">PDF Documents</string>
+	<string name="titleURLHistory">URL History</string>
+	<string name="titleConvertToPDF">Convert to PDF</string>
+	<string name="titleOpenInSafari">Open in Safari</string>
+	<string name="titleConvertAPage">Convert a Web Page to PDF</string>
 	<string name="titleSettings">Settings</string>
-	<string name="titleApplication">Application</string>
+	<string name="titlePDFFiles">PDF Files</string>
+	<string name="titleHistory">History</string>
+	<string name="titleUnexpectedError">Unexpected Error</string>
+	<string name="titleGotoDocs">My Documents</string>
+	<string name="titleFileName">File Name</string>
+	<string name="titleSaveToFilename">Enter file name for the PDF</string>
+	<string name="textTypeOrPaste">Type or paste a web address</string>
+	<string name="titleEnterAddress">Enter URL</string>
+	<string name="titlePaperType">Paper Type</string>
+	<string name="textConvertFromSafari">To convert a web page directly from Safari:</string>
+	<string name="textPDFColon">Change http:// to either pdf:// or pdfhttp://</string>
+	<string name="textPDFSColon">Change https:// to either pdfs:// or pdfhttps://</string>
+	<string name="textDocumentsCreated">%d PDF Documents Created!</string>
+	<string name="titleFileWarning">This file exists and will be overwritten!</string>
 </resources>

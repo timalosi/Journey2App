@@ -19,7 +19,7 @@ var filename;
 $.init = function() {
 	APP.log("debug", "pdf.init | " + JSON.stringify(CONFIG));
 
-	filename = $.getFileName(CONFIG.url)
+	filename = $.getFileName(CONFIG.url);
 
 	if(!UTIL.fileExists(filename)) {
 		HTTP.request({

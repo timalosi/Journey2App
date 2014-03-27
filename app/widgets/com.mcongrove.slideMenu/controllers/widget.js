@@ -1,6 +1,6 @@
 /**
  * The slide menu widget
- * 
+ *
  * @class Widgets.com.mcongrove.slideMenu
  */
 var sections = [];
@@ -23,47 +23,47 @@ $.init = function(_params) {
 	// Creates a TableViewSection for each tab with a menuHeader property
 	buildSections(_params.nodes);
 
-	if(sections.length > 0) {
+	if (sections.length > 0) {
 		var currentSection = -1;
 	}
-
-	for(var i = 0; i < _params.nodes.length; i++) {
+	
+	for (var i = 0; i < _params.nodes.length; i++) {
 		// Iterates through the created sections
-		if(_params.nodes[i].menuHeader) {
+		if (_params.nodes[i].menuHeader) {
 			currentSection++;
 		}
 
 		var tab = Ti.UI.createTableViewRow({
-			id: _params.nodes[i].id,
-			height: "47dp",
-			backgroundcolor: "#111",
-			backgroundSelectedColor: "#222",
-			selectedBackgroundColor: "#222"
+			id : _params.nodes[i].id,
+			height : "47dp",
+			backgroundcolor : "#111",
+			backgroundSelectedColor : "#222",
+			selectedBackgroundColor : "#222"
 		});
 
 		var label = Ti.UI.createLabel({
-			text: _params.nodes[i].title,
-			top: "0dp",
-			left: "47dp",
-			right: "13dp",
-			height: "46dp",
-			font: {
-				fontSize: "16dp",
-				fontFamily: "HelveticaNeue-Light"
+			text : (typeof _params.nodes[i].titleid !== "undefined") ? L(_params.nodes[i].titleid) : _params.nodes[i].title,
+			top : "0dp",
+			left : "47dp",
+			right : "13dp",
+			height : "46dp",
+			font : {
+				fontSize : "16dp",
+				fontFamily : "HelveticaNeue-Light"
 			},
-			color: "#FFF",
-			touchEnabled: false
+			color : "#FFF",
+			touchEnabled : false
 		});
 
-		if(_params.nodes[i].image) {
+		if (_params.nodes[i].image) {
 			var icon = Ti.UI.createImageView({
-				image: _params.nodes[i].image,
-				width: "21dp",
-				height: "21dp",
-				top: "13dp",
-				left: "13dp",
-				touchEnabled: false,
-				preventDefaultImage: true
+				image : _params.nodes[i].image,
+				width : "21dp",
+				height : "21dp",
+				top : "13dp",
+				left : "13dp",
+				touchEnabled : false,
+				preventDefaultImage : true
 			});
 
 			tab.add(icon);
@@ -71,13 +71,13 @@ $.init = function(_params) {
 
 		tab.add(label);
 
-		if(sections.length > 0) {
+		if (sections.length > 0) {
 			sections[currentSection].add(tab);
 
 			// If the last tab has been created and added to a section or
 			// the next tab is a new header, append the current section to the TableView
-			if(i + 1 !== _params.nodes.length) {
-				if(_params.nodes[i + 1].menuHeader) {
+			if (i + 1 !== _params.nodes.length) {
+				if (_params.nodes[i + 1].menuHeader) {
 					$.Nodes.appendSection(sections[currentSection]);
 				}
 			} else {
@@ -88,7 +88,7 @@ $.init = function(_params) {
 		}
 	}
 
-	if(nodes.length > 0) {
+	if (nodes.length > 0) {
 		$.Nodes.setData(nodes);
 	}
 
@@ -102,7 +102,7 @@ $.init = function(_params) {
  * @param {Object} _event The event
  */
 function handleClick(_event) {
-	if(typeof _event.index !== "undefined") {
+	if ( typeof _event.index !== "undefined") {
 		$.setIndex(_event.index);
 	}
 };
@@ -113,34 +113,34 @@ function handleClick(_event) {
  * @private
  */
 function buildSections(_nodes) {
-	for(var i = 0; i < _nodes.length; i++) {
+	for (var i = 0; i < _nodes.length; i++) {
 		// Assigns special menuHeader styling
-		if(_nodes[i].menuHeader) {
+		if (_nodes[i].menuHeader) {
 			var header = Ti.UI.createView({
-				top: "0dp",
-				height: "20dp",
-				width: Ti.UI.FILL,
-				backgroundColor: color.headingBackground
+				top : "0dp",
+				height : "20dp",
+				width : Ti.UI.FILL,
+				backgroundColor : color.headingBackground
 			});
 
 			var headerText = Ti.UI.createLabel({
-				text: _nodes[i].menuHeader,
-				top: "2dp",
-				left: "13dp",
-				font: {
-					fontSize: "12dp",
-					fontWeight: "HelveticaNeue-Light"
+				text : _nodes[i].menuHeader,
+				top : "2dp",
+				left : "13dp",
+				font : {
+					fontSize : "12dp",
+					fontWeight : "HelveticaNeue-Light"
 				},
-				color: color.headingText,
-				touchEnabled: false,
-				verticalAlignment: Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-				isHeader: true
+				color : color.headingText,
+				touchEnabled : false,
+				verticalAlignment : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+				isHeader : true
 			});
 
 			header.add(headerText);
 
 			var section = Ti.UI.createTableViewSection({
-				headerView: header
+				headerView : header
 			});
 
 			sections.push(section);
@@ -165,6 +165,6 @@ $.setIndex = function(_index) {
 };
 
 // Move the UI down if iOS7+
-if(OS_IOS && parseInt(Ti.Platform.version.split(".")[0], 10) >= 7) {
+if (OS_IOS && parseInt(Ti.Platform.version.split(".")[0], 10) >= 7) {
 	$.Nodes.top = "20dp";
 }

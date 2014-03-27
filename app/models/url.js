@@ -2,7 +2,8 @@ exports.definition = {
 	config: {
 		columns: {
 		    "url": "string",
-		    "filename": "string"
+		    "filename": "string",
+		    "timestamp" : "string"
 		},
 		adapter: {
 			type: "sql",

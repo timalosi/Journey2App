@@ -1,123 +1,150 @@
 /**
- * Controller for the Facebook post list screen
+ * Controller for listing files in the Alloy.Globals.directoryPath variable
  *
- * @class Controllers.facebook
- * @uses Models.facebook
+ * @class Controllers.documents
  * @uses core
- * @uses utilities
+ * @uses FileManager
+ *
+ * CONFIG.isChild - From APP.addChild
  */
 var APP = require("core");
 var FileManager = require("FileManager");
 
 var CONFIG = arguments[0];
-var SELECTED;
+var SELECTED = 0;
 
-var offset = 0;
-var refreshLoading = false;
-var refreshEngaged = false;
-//TODO: Crashes on empty documents
+//TODO: DOES NOT REFRESH!!
 /**
  * Initializes the controller
  */
 $.init = function() {
-	APP.log("debug", "documents.init | " + JSON.stringify(CONFIG));
+	try {
+		APP.log("debug", "documents.init | ");
 
-	$.populate();
+		$.populate();
+		
+		if (APP.Device.isTablet) {
+			APP.addChild("document_detail", {
+				index : SELECTED
+			});
+		}
 
-	$.NavigationBar.setBackgroundColor(APP.Settings.colors.primary);
+		$.NavigationBar.setBackgroundColor(APP.Settings.colors.primary);
 
-	if (CONFIG.isChild === true) {
-		$.NavigationBar.showBack(function(_event) {
-			APP.removeChild();
+		if (CONFIG.isChild === true) {
+			$.NavigationBar.showBack(function(_event) {
+				APP.removeChild();
+			});
+		} else if (APP.Settings.useSlideMenu) {
+			$.NavigationBar.showMenu(function(_event) {
+				APP.toggleMenu();
+			});
+		} else {
+			$.NavigationBar.showSettings(function(_event) {
+				APP.openSettings();
+			});
+		}
+
+		//Set App Wide Listeners
+		Ti.App.addEventListener("document_change", $.refresh);
+		Ti.App.addEventListener("APP.screen_change", $.refresh);
+	} catch(err) {
+		APP.error({
+			f : 'documents.init',
+			err : err
 		});
 	}
-
-	if (APP.Settings.useSlideMenu) {
-		$.NavigationBar.showMenu(function(_event) {
-			APP.toggleMenu();
-		});
-	} else {
-		$.NavigationBar.showSettings(function(_event) {
-			APP.openSettings();
-		});
-	}
-
-	//Set App Wide Listeners
-	Ti.App.addEventListener("document_change", $.populate);
 };
 
 function doTableviewClick(e) {
-	APP.log("debug", "documents.doTableviewClick.e | " + JSON.stringify(e));
+	try {
+		APP.log("debug", "documents.doTableviewClick.e | " + JSON.stringify(e));
 
-	var path = e.row.path;
-	var index = e.row.index;
-	APP.log("debug", "documents.doTableviewClick.path: " + path);
-	APP.log("debug", "documents.doTableviewClick.index: " + index);
-	if (APP.Device.isTablet) {
-		SELECTED = index;
+		var path = e.row.path;
+		var index = e.row.index;
 
-		APP.addChild("document_detail", {
-			index : index
+		if (APP.Device.isTablet) {
+			SELECTED = index;
+
+			APP.addChild("document_detail", {
+				index : index
+			});
+		} else {
+			var z = Ti.UI.iOS.createDocumentViewer({
+				url : path
+			});
+			z.show();
+		}
+	} catch(err) {
+		APP.error({
+			f : 'documents.doTableviewClick',
+			err : err
 		});
-	} else {
-		var z = Ti.UI.iOS.createDocumentViewer({
-			url : path
-		});
-		z.show();
 	}
 };
 
 function doTableviewDelete(e) {
-	APP.log("debug", "documents.doTableviewDelete.e | " + JSON.stringify(e));
-	var path = e.rowData.path;
-	var fm = new FileManager();
-	fm.deleteFile(path);
-};
-
-$.populate = function() {
-	//return;
-	//get a copy of the FileManager utility
-	var fm = new FileManager();
-	var results = fm.ls(Alloy.Globals.directoryPath);
-	var docs = results.files;
-
-	APP.log("debug", "documents.populate | " + JSON.stringify(docs));
-	var rows = [];
-	if (docs.length > 0) {
-		for (var i in docs) {
-			APP.log("debug", "documents.populate.document | " + JSON.stringify(docs[i]));
-			if (docs[i].isFile === true && docs[i].extension === "pdf") {
-				var row = Alloy.createController("documents_row", {
-					path : docs[i].nativePath,
-					heading : docs[i].name,
-					subHeading : new Date(docs[i].modified).toLocaleString(),
-					icon : "/icons/pdf.png",
-					index : i
-				}).getView();
-				rows.push(row);
-			}
-		}
-	}
-	$.container.setData(rows);
-
-	if (APP.Device.isTablet && !SELECTED) {
-		//SELECTED = docs[0].nativePath;
-
-		APP.addChild("document_detail", {
-			index : 0
+	try {
+		APP.log("debug", "documents.doTableviewDelete.e | " + JSON.stringify(e));
+		var path = e.rowData.path;
+		var fm = new FileManager();
+		fm.deleteFile(path);
+	} catch(err) {
+		APP.error({
+			f : 'documents.doTableviewDelete',
+			err : err
 		});
 	}
 };
 
-/**
- * Handles the pull-to-refresh event
- * @param {Object} _event The event
- */
-function ptrRelease(_event) {
-	$.retrieveData(true, function() {
-		_event.hide();
-	});
-}
+$.populate = function() {
+	try {
+		//get a copy of the FileManager utility
+		var fm = new FileManager();
+		var results = fm.ls(Alloy.Globals.directoryPath);
+		var docs = results.files;
+
+		APP.log("debug", "documents.populate | " + JSON.stringify(docs));
+		var rows = [];
+		if (docs.length > 0) {
+			for (var i in docs) {
+				APP.log("debug", "documents.populate.document | " + JSON.stringify(docs[i]));
+				if (docs[i].isFile === true && docs[i].extension === "pdf") {
+					var row = Alloy.createController("documents_row", {
+						path : docs[i].nativePath,
+						heading : docs[i].name,
+						subHeading : new Date(docs[i].modified).toLocaleString(),
+						icon : "/icons/pdf.png",
+						index : i
+					}).getView();
+					rows.push(row);
+				}
+			}
+		} else {
+			//TODO: What do you do if there are no files? ... do you launch "Convert"
+		}
+		$.container.setData(rows);
+
+		
+	} catch(err) {
+		APP.error({
+			f : 'documents.populate',
+			err : err
+		});
+	}
+};
+
+$.refresh = function(e) {
+	try {
+		APP.log("debug", "documents.refresh.e | " + JSON.stringify(e));
+		$.populate();
+	} catch(err) {
+		APP.error({
+			f : 'documents.populate',
+			err : err
+		});
+	}
+};
 
 // Kick off the init
 $.init();

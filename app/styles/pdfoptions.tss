@@ -1,0 +1,138 @@
+"#Wrapper": {
+	layout: "vertical", 
+},
+"#container": {
+	top: "0dp", 
+	backgroundColor: "#FFF",
+	layout: "vertical",
+	showVerticalScrollIndicator: true
+},
+".heading[formFactor=handheld]": {
+	top: "15dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+				textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: "22dp",
+		fontWeight: "bold",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+".heading[formFactor=tablet]": {
+	top: "25dp",
+	left: "15%",
+	right: "15%",
+	height: Ti.UI.SIZE,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: "40dp",
+				fontWeight: "semibold",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+"#filename[formFactor=handheld]": {
+	top: "5dp",
+	width: "70%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000",
+	borderWidth: 1, borderColor:"green"
+},
+"#filename[formFactor=tablet]": {
+	top: "0dp",
+	width: "70%",
+	height: "40dp",
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000",
+},
+"#filewarning[formFactor=handheld]": {
+	top: "5dp",
+	width: "70%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000",
+	borderWidth: 1, borderColor:"green"
+},
+"#filewarning[formFactor=tablet]": {
+	top: "0dp",
+	width: "70%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "red",
+},
+"Button[formFactor=handheld]": {
+	top: "0dp",
+	right: "0dp",
+	width: "50%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+},
+"Button[formFactor=tablet]": {
+	top: "0dp",
+	right: "0dp",
+	width: "50%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+},
+"TableView[formFactor=handheld]": {
+	top: "5dp",
+	width: "70%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+	borderWidth: 1, borderRadius: "15dp", borderColor:"#ccc"
+},
+"TableView[formFactor=tablet]": {
+	top: "5dp",
+	width: "70%",
+	height: Ti.UI.SIZE,
+	borderWidth: 1, 
+	borderRadius: "10dp",  
+	borderColor:"#ccc",
+	minRowHeight:"50dp"
+},
+"TableViewRow[formFactor=tablet]": {
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "30dp",
+		fontFamily: "HelveticaNeue"
+	},
+},
+//Classes
+".horizontal[formFactor=handheld]": {
+	layout:"horizontal",
+	left:"15dp",
+	right:"15dp",
+	bottom:"20dp",
+	height:Ti.UI.SIZE,
+},
+".horizontal[formFactor=tablet]": {
+layout:"horizontal",
+	left:"10%",
+	right:"10%",
+	bottom:"20dp",
+	height:Ti.UI.SIZE,
+}

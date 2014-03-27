@@ -1,0 +1,21 @@
+<Alloy>
+	<Window id="options">
+		<View id="Wrapper">
+			<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" text="L('titleConvertToPDF')" />
+			<ScrollView id="container">
+				<Label class="heading" text="L('titleFileName')"/>
+				<TextField id="filename" hintText="L('titleSaveToFilename')" borderStyle="Ti.UI.INPUT_BORDERSTYLE_ROUNDED" keyboardType="Ti.UI.KEYBOARD_DEFAULT" onBlur="doFileCheck" onChange="doFileCheck"/>
+				<Label id="filewarning" text="L('titleFileWarning')"/>
+				<Label class="heading" text="L('titlePaperType')"/>
+				<TableView id="tableview" onClick="doTableViewClick">
+					<TableViewRow id="letter" title="L('letter')"></TableViewRow>
+					<TableViewRow id="a4" title="L('a4')"></TableViewRow>
+				</TableView>
+			</ScrollView>
+		</View>
+		<View class="horizontal">
+			<Button id="save" titleid="save" onClick="doSave" />
+			<Button id="cancel" titleid="cancel" onClick="doCancel"></Button>
+		</View>
+	</Window>
+</Alloy>

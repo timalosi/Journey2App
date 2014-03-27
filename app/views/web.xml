@@ -1,28 +1,25 @@
 <Alloy>
 	<View id="Wrapper" name="Web">
-		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" image="data/logo.png" />
-		
+		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" text="L('application')" />
+		<View id="addressbar">
+			<TextField id="address" hintText="L('titleEnterAddress')" borderStyle="Ti.UI.INPUT_BORDERSTYLE_ROUNDED" keyboardType="Ti.UI.KEYBOARD_URL" onReturn="doClick"></TextField>
+			<Button id="go" titleid="go" onClick="doClick" />
+		</View>
 		<View id="container" />
-		
 		<View id="toolbar">
 			<View id="border" />
-			
 			<View id="containerBack" class="container">
 				<ImageView id="Back" class="button" image="/images/back.png" />
 			</View>
-			
 			<View id="containerForward" class="container">
 				<ImageView id="Forward" class="button" image="/images/forward.png" />
 			</View>
-			
 			<View id="containerRefresh" class="container">
 				<ImageView id="Refresh" class="button" image="/images/refresh.png" />
 			</View>
-			
 			<View id="containerStop" class="container">
 				<ImageView id="Stop" class="button" image="/images/stop.png" />
 			</View>
-			
 			<View id="containerAction" class="container">
 				<ImageView id="Action" class="button" image="/images/safari.png" />
 			</View>

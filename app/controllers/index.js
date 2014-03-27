@@ -7,7 +7,11 @@
  *
  * @class Controllers.index
  * @uses core
+ * @uses functions
  */
+
+//TODO: Launch Convert screen if no documents
+//TODO: Analytics
 
 // Pull in the core APP singleton
 var APP = require("core");
@@ -25,4 +29,9 @@ FX.preInit();
 // Start the APP
 APP.init();
 //GoPDF App Specific Post Init Function
-FX.postInit(); 
+FX.postInit();
+//Open Convert to PDF Screen if no PDF Files exist
+if(!FX.filesExist()){
+	APP.closeSettings();
+		APP.handleNavigation(2);
+} 

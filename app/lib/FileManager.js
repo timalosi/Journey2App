@@ -161,6 +161,7 @@ FileManager.prototype.ls = function(_directory) {
 				}
 			}
 		}
+		results.fileCount = results.files.length;
 		return results;
 
 	} catch(err) {

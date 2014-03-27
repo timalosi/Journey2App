@@ -261,6 +261,7 @@ var APP = {
 		APP.MainWindow.open();
 
 		// The initial screen to show
+		//TODO: This is where we can detect whether to show the convert screen.
 		APP.handleNavigation(0);
 
 		// NOTICE:
@@ -411,6 +412,7 @@ var APP = {
 		for (var i = 0, x = APP.Nodes.length; i < x; i++) {
 			nodes.push({
 				id : i,
+				titleid : APP.Nodes[i].titleid,
 				title : APP.Nodes[i].title,
 				image : UTIL.fileExists(imageFolder + APP.Nodes[i].image + ".png") ? imageFolder + APP.Nodes[i].image + ".png" : null,
 				controller : APP.Nodes[i].type.toLowerCase(),
@@ -711,16 +713,31 @@ var APP = {
 	 * @param {Boolean} _modal Whether this is for the modal stack
 	 * @param {Boolean} _sibling Whether this is a sibling view
 	 */
+	/**
+	 * Change Log
+	 * passed _modal as a parameter into the _params object
+	 */
 	addChild : function(_controller, _params, _modal, _sibling) {
 		var stack;
+
+		Ti.API.debug("addChild:Adding " + _controller + " modal " + _modal);
 
 		// Determine if stack is associated with a tab
 		if (_modal) {
 			stack = APP.modalStack;
+			Ti.API.debug("addChild:Adding " + _controller + " stack is modal");
+			if (_params !== undefined) {
+				_params.modal = true;
+			}
 		} else {
+			if (_params !== undefined) {
+				_params.modal = false;
+			}
 			if (APP.Device.isHandheld || !APP.hasDetail) {
+				Ti.API.debug("addChild:Adding " + _controller + " stack is current");
 				stack = APP.controllerStacks[APP.currentStack];
 			} else {
+				Ti.API.debug("addChild:Adding " + _controller + " stack is detail");
 				stack = APP.detailStacks[APP.currentDetailStack];
 			}
 		}
@@ -737,8 +754,10 @@ var APP = {
 
 		// Add the screen to the window
 		if (APP.Device.isHandheld || !APP.hasDetail || _modal) {
+			Ti.API.debug("addChild:Adding " + _controller + " adding Screen");
 			APP.addScreen(screen);
 		} else {
+			Ti.API.debug("addChild:Adding " + _controller + " adding Detail");
 			APP.addDetailScreen(screen);
 		}
 	},
@@ -748,13 +767,17 @@ var APP = {
 	 */
 	removeChild : function(_modal) {
 		var stack;
+		Ti.API.debug("removeChild:Removing modal " + _modal);
 
 		if (_modal) {
+			Ti.API.debug("removeChild:Removing " + " stack is modal");
 			stack = APP.modalStack;
 		} else {
 			if (APP.Device.isTablet && APP.hasDetail) {
+				Ti.API.debug("removeChild:Removing " + " stack is Detail");
 				stack = APP.detailStacks[APP.currentDetailStack];
 			} else {
+				Ti.API.debug("removeChild:Removing " + " stack is current");
 				stack = APP.controllerStacks[APP.currentStack];
 			}
 		}
@@ -770,14 +793,17 @@ var APP = {
 
 			if (APP.Device.isHandheld || !APP.hasDetail) {
 				previousScreen = previousStack[previousStack.length - 1];
+				Ti.API.debug("removeChild:Removing " + " addScreen Previous l=0");
 
 				APP.addScreen(previousScreen);
 			} else {
 				previousScreen = previousStack[0];
 
 				if (_modal) {
+					Ti.API.debug("removeChild:Removing " + " addScreen previousStack l=0");
 					APP.addScreen(previousScreen);
 				} else {
+					Ti.API.debug("removeChild:Removing " + " addDetailScreen previousStack l=0");
 					APP.addDetailScreen(previousScreen);
 				}
 			}
@@ -785,11 +811,17 @@ var APP = {
 			previousScreen = stack[stack.length - 1];
 
 			if (APP.Device.isHandheld || !APP.hasDetail) {
+				Ti.API.debug("removeChild:Removing " + " addScreen Previous");
+
 				APP.addScreen(previousScreen);
 			} else {
 				if (_modal) {
+					Ti.API.debug("removeChild:Removing " + " addScreen Previous m");
+
 					APP.addScreen(previousScreen);
 				} else {
+					Ti.API.debug("removeChild:Removing " + " addDetail Previous");
+
 					APP.addDetailScreen(previousScreen);
 				}
 			}
@@ -815,8 +847,10 @@ var APP = {
 	addScreen : function(_screen) {
 		if (_screen) {
 			APP.ContentWrapper.add(_screen);
+			Ti.App.fireEvent("APP.screen_change",{});
 
 			if (APP.previousScreen) {
+				Ti.API.debug("APP.addScreen removing previous screen");
 				APP.removeScreen(APP.previousScreen);
 			}
 
@@ -828,6 +862,8 @@ var APP = {
 	 * @param {Object} _screen The screen to remove
 	 */
 	removeScreen : function(_screen) {
+		Ti.API.debug("APP.removeScreen " + JSON.stringify(_screen));
+		
 		if (_screen) {
 			APP.ContentWrapper.remove(_screen);
 
@@ -856,6 +892,7 @@ var APP = {
 	 * @param {Object} _screen The screen to add
 	 */
 	addDetailScreen : function(_screen) {
+		Ti.API.debug("APP.addDetailScreen " + JSON.stringify(_screen));
 		if (_screen) {
 			APP.Detail[APP.currentStack].add(_screen);
 
@@ -878,6 +915,7 @@ var APP = {
 	 * @param {Boolean} _pop Whether to pop the item off the controller stack
 	 */
 	removeDetailScreen : function(_screen, _pop) {
+		Ti.API.debug("APP.removeDetailScreen " + JSON.stringify(_screen));
 		if (_screen) {
 			APP.Detail[APP.currentStack].remove(_screen);
 
@@ -1034,6 +1072,25 @@ var APP = {
 			email.open();
 		}
 	},
+	error : function(_args) {
+		/*
+		 * _args.f = string name of function
+		 * _args.err = error object
+		 */
+		try {
+			var alertDialog = Titanium.UI.createAlertDialog({
+				title : L('titleUnexpectedError'),
+				message : _args.f + ':' + _args.err,
+				buttonNames : [L('acknowledged')]
+			});
+			alertDialog.show();
+			APP.log("error", _args.f + '.error:' + _args.err);
+		} catch (err) {
+			Ti.API.error('APP.error.error:' + err);
+		}
+
+	},
+
 	/**
 	 * Global orientation event handler
 	 * @param {Object} _event Standard Titanium event callback
@@ -1069,10 +1126,6 @@ var APP = {
 	 */
 	exitObserver : function(_event) {
 		APP.log("debug", "APP.exitObserver");
-		Ti.App.fireEvent("APP:orientationChange");
-		if (Alloy.Globals.exitObserver !== undefined) {
-			Alloy.Globals.exitObserver(_event);
-		}
 	},
 	/**
 	 * Resume event observer
@@ -1080,9 +1133,6 @@ var APP = {
 	 */
 	resumeObserver : function(_event) {
 		APP.log("debug", "APP.resumeObserver");
-		if (Alloy.Globals.resumeObserver !== undefined) {
-			Alloy.Globals.resumeObserver(_event);
-		}
 	},
 	/**
 	 * Back button observer
@@ -1113,4 +1163,4 @@ var APP = {
 	}
 };
 
-module.exports = APP; 
+module.exports = APP;

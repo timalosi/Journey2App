@@ -1,8 +1,14 @@
 /**
- * Controller for the Facebook post table row
+ * Controller for the URL History table row
  * 
- * @class Controllers.facebook.row
+ * @class Controllers.urlhistory.row
  * @uses core
+ * 
+ * CONFIG.path - native file path
+ * CONFIG.index - index of the row reference to original array
+ * CONFIG.heading - file name
+ * CONFIG.subHeading - modification date
+ * CONFIG.icon - icon file to display
  */
 var APP = require("core");
 

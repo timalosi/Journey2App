@@ -10,55 +10,28 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-/**
- * Global Functions
+/*
+ * Application Analytics
+ * KPI = Each Successful PDF File Creation
+ * Metric 1:
+ * Metric 2:
+ * Metric 3:
+ * Metric 4:
+ * Metric 5:
  */
-Alloy.Globals.resumeObserver = function(e) {
-	//TODO: Move to Functions
-	//TODO: Analytics
-	var args = Ti.App.getArguments();
-	alert("in resumed");
-	try {
 
-		if (args.url !== undefined) {
-			Alloy.Globals.url = args.url;
-
-			var components = args.url.split('/');
-			var url = args.url;
-			var len = components.length;
-			var parameters = {};
-
-			//TODO: refresh document rows
-
-			if (len > 0) {
-
-				//Get the protocol and decide what to do
-				switch(components[0].toLowerCase()) {
-					case ('pdf:'):
-					case ('pdfhttp:'):
-						url = url.replace(components[0], 'http:');
-						break;
-					case('pdfs:'):
-					case('pdfhttps:'):
-						url = url.replace(components[0], 'https:');
-						break;
-				}
-				alert(url);
-				var APP = require("core");
-				APP.addChild("web", {
-					url : url
-				}, false, false);
-				APP = null;
-			} else/*len > 0*/
-			{
-				return false;
-			}
-		} else {
-			return false;
-		}
-
-	} catch(err) {
-		//TODO: Catch
-		Ti.API.error("Alloy.Globals.onResumed.Error:" + err);
-	}
-};
+/**
+ * Global Functions and Variables
+ */
+/**
+ * Create Singleton of the url Collection
+ */
+Alloy.Collections.url = Alloy.createCollection('url');
+/**
+ * Last URL passed to the App
+ */
+Alloy.Globals.url = '';
+/**
+ * Default directory to look for files
+ */
+Alloy.Globals.directoryPath = Ti.Filesystem.applicationDataDirectory;

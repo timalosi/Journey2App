@@ -1,0 +1,165 @@
+"#Wrapper": {
+	layout: "vertical"
+},
+"#container": {
+	top: "0dp",
+	backgroundColor: "#FFF",
+	layout: "vertical",
+	showVerticalScrollIndicator: true
+},
+"#heading[formFactor=handheld]": {
+	top: "15dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+				textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: "22dp",
+		fontWeight: "bold",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+"#heading[formFactor=tablet]": {
+	top: "15dp",
+	left: "15%",
+	right: "15%",
+	height: Ti.UI.SIZE,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: "40dp",
+				fontWeight: "semibold",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+"#address[formFactor=handheld]": {
+	left: "0dp",
+	right: "81dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "16dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+"#go[formFactor=handheld]": {
+	top: "0dp",
+	right: "0dp",
+	width: "80dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue"
+	}
+},
+"#address[formFactor=tablet]": {
+	top: "5dp",
+	left: "0dp",
+	right: "100dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+"#go[formFactor=tablet]": {
+	top: "0dp",
+	right: "0dp",
+	width: "80dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	}
+},
+"#gotoDocs[formFactor=handheld]": {
+	top: "10dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue"
+	},
+},
+"#gotoDocs[formFactor=tablet]": {
+	top: "20dp",	
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+},
+//Classes
+".helptitle[formFactor=handheld]": {
+	top: "15dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontWeight: "bold",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+".helptitle[formFactor=tablet]": {
+	top: "30dp",
+	left: "15%",
+	right: "15%",
+		textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "24dp",
+		fontFamily: "HelveticaNeue"
+	},
+	color: "#000"
+},
+".help[formFactor=handheld]": {
+	top: "15dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue-Light"
+	},
+	color: "#000"
+},
+".help[formFactor=tablet]": {
+	top: "15dp",
+	left: "15%",
+	right: "15%",
+	height: Ti.UI.SIZE,
+	font: {
+		fontSize: "18dp",
+		fontFamily: "HelveticaNeue-Light"
+	},
+	color: "#000"
+},
+".footer": {
+	top: "15dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+			textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: "14dp",
+		fontFamily: "HelveticaNeue-Light"
+	},
+	color: "#555"
+},
+".horizontal[formFactor=handheld]": {
+	//layout:"horizontal",
+	top: "10dp",
+	left:"10dp",
+	right:"10dp",
+	height:Ti.UI.SIZE
+},
+".horizontal[formFactor=tablet]": {
+	//layout:"horizontal",
+	top: "15dp",
+	left:"10%",
+	right:"10%",
+	height:Ti.UI.SIZE,
+}

@@ -1,6 +1,6 @@
 /**
  * Controller for the settings screen
- * 
+ *
  * @class Controllers.settings
  * @uses core
  */
@@ -12,16 +12,16 @@ var APP = require("core");
 $.init = function() {
 	APP.log("debug", "settings.init");
 
-	if(!APP.LEGAL.TOS && !APP.LEGAL.PRIVACY) {
+	if (!APP.LEGAL.TOS && !APP.LEGAL.PRIVACY) {
 		$.container.remove($.legal_table);
-	} else if(!APP.LEGAL.TOS || !APP.LEGAL.PRIVACY) {
-		if(!APP.LEGAL.TOS) {
+	} else if (!APP.LEGAL.TOS || !APP.LEGAL.PRIVACY) {
+		if (!APP.LEGAL.TOS) {
 			setTimeout(function() {
 				$.legal_table.deleteRow(0);
 			}, 1);
 		}
 
-		if(!APP.LEGAL.PRIVACY) {
+		if (!APP.LEGAL.PRIVACY) {
 			setTimeout(function() {
 				$.legal_table.deleteRow(1);
 			}, 1);
@@ -30,7 +30,7 @@ $.init = function() {
 		$.legal_table.height = "45dp";
 	}
 
-	if(!Ti.UI.createEmailDialog().isSupported) {
+	if (!Ti.UI.createEmailDialog().isSupported) {
 		$.container.remove($.logs_table);
 	}
 
@@ -39,7 +39,7 @@ $.init = function() {
 
 	$.NavigationBar.setBackgroundColor(APP.Settings.colors.primary);
 
-	if(APP.Settings.useSlideMenu) {
+	if (APP.Settings.useSlideMenu) {
 		$.NavigationBar.showMenu(function(_event) {
 			APP.toggleMenu();
 		});
@@ -55,8 +55,8 @@ $.terms.addEventListener("click", function(_event) {
 	APP.log("debug", "settings @terms");
 
 	APP.addChild("settings_legal", {
-		title: "Terms of Service",
-		url: APP.LEGAL.TOS
+		title : "Terms of Service",
+		url : APP.LEGAL.TOS
 	}, true);
 });
 
@@ -64,8 +64,8 @@ $.privacy.addEventListener("click", function(_event) {
 	APP.log("debug", "settings @privacy");
 
 	APP.addChild("settings_legal", {
-		title: "Privacy Policy",
-		url: APP.LEGAL.PRIVACY
+		title : "Privacy Policy",
+		url : APP.LEGAL.PRIVACY
 	}, true);
 });
 
@@ -81,5 +81,12 @@ $.logs.addEventListener("click", function(_event) {
 	APP.logSend();
 });
 
+function doLink(e) {
+	APP.addChild("web", {
+		url : e.source.url,
+		isChild : true
+	}, true);
+}
+
 // Kick off the init
-$.init();
+$.init(); 

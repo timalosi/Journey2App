@@ -1,6 +1,29 @@
 "#container": {
-	top: "47dp",
+	top: "91dp",
 	backgroundColor: "#000"
+},
+"#addressbar": {
+	visible: true,
+	backgroundColor: "#FFF",
+	height: "44dp",
+	top: "47dp",
+	width: Ti.UI.FILL
+},
+"#address[formFactor=handheld]": {
+	left: "5dp",
+	right: "85dp"
+},
+"#go[formFactor=handheld]": {
+	right: "5dp",
+	width: "80dp"
+},
+"#address[formFactor=tablet]": {
+	left: "20dp",
+	right: "120dp"
+},
+"#go[formFactor=tablet]": {
+	right: "20dp",
+	width: "100dp"
 },
 "#toolbar": {
 	visible: false,

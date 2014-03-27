@@ -39,6 +39,18 @@
 	height: Ti.UI.SIZE,
 	textAlign: "left"
 },
+".link": {
+	color: "blue",
+	font: {
+		fontSize: "14dp",
+		fontFamily: "HelveticaNeue"
+	},
+	top: "5dp",
+	left: "15dp",
+	right: "15dp",
+	height: Ti.UI.SIZE,
+	textAlign: "left"
+},
 "#copyright": {
 	top: "20dp"
 },

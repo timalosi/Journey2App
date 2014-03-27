@@ -1,0 +1,18 @@
+<Alloy>
+	<View id="Wrapper" name="Text">
+		<Require type="widget" src="com.mcongrove.navigationBar" id="NavigationBar" text="L('titleConvertToPDF')" />
+		<ScrollView id="container">
+			<Label id="heading" text="L('titleConvertAPage')"/>
+			<View class="horizontal">
+				<TextField id="address" hintText="L('titleEnterAddress')" borderStyle="Ti.UI.INPUT_BORDERSTYLE_ROUNDED" keyboardType="Ti.UI.KEYBOARD_URL" onReturn="doClick"></TextField>
+				<Button id="go" titleid="go" onClick="doClick" />
+			</View>
+			<Button id="gotoDocs" titleid="titleGotoDocs" onClick="doGotoClick"></Button>
+			<Label class="helptitle" text="L('textConvertFromSafari')"/>
+			<Label class="help" text="L('textPDFColon')" />
+			<Label class="help" text="L('or')" />
+			<Label class="help" text="L('textPDFSColon')" />
+			<Label id="footer" class="footer" />
+		</ScrollView>
+	</View>
+</Alloy>
