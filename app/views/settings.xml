@@ -7,7 +7,7 @@
 				<TableViewRow id="privacy" title="Privacy Policy" hasChild="true" />
 			</TableView>
 			<TableView id="logs_table" height="90dp">
-				<TableViewRow id="logs" title="Send Application Logs" hasChild="true" />
+				<TableViewRow id="logs" title="Email Support" hasChild="true" />
 				<TableViewRow id="acknowledgements" title="Acknowledgements" hasChild="true" />
 			</TableView>
 			<Label text="Visit the Go PDF Support site at"/>
@@ -16,7 +16,6 @@
 			<Label id="version" />
 			<Label text="Interested in the development of this application?  Check out the story behind the app in the blog series 'Journey 2 App'" />
 			<Label class="link" url="http://fivebytes.blogspot.com/2014/01/journey-to-app-writing-and-publishing.html" text="http://fivebytes.blogspot.com/2014/01/journey-to-app-writing-and-publishing.html" onClick="doLink" />
-			<Label id="chariti" />
 		</ScrollView>
 	</View>
 </Alloy>

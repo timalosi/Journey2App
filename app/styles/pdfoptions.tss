@@ -35,14 +35,14 @@
 },
 "#filename[formFactor=handheld]": {
 	top: "5dp",
-	width: "70%",
+right: "15dp",
+left: "15dp",
 	height: Ti.UI.SIZE,
 	font: {
 		fontSize: "24dp",
 		fontFamily: "HelveticaNeue"
 	},
-	color: "#000",
-	borderWidth: 1, borderColor:"green"
+	color: "#000"
 },
 "#filename[formFactor=tablet]": {
 	top: "0dp",
@@ -56,14 +56,14 @@
 },
 "#filewarning[formFactor=handheld]": {
 	top: "5dp",
-	width: "70%",
+right: "15dp",
+left: "15dp",
 	height: Ti.UI.SIZE,
 	font: {
-		fontSize: "18dp",
+		fontSize: "14dp",
 		fontFamily: "HelveticaNeue"
 	},
-	color: "#000",
-	borderWidth: 1, borderColor:"green"
+	color: "#red"
 },
 "#filewarning[formFactor=tablet]": {
 	top: "0dp",
@@ -97,10 +97,11 @@
 },
 "TableView[formFactor=handheld]": {
 	top: "5dp",
-	width: "70%",
+	right: "15dp",
+left: "15dp",
 	height: Ti.UI.SIZE,
 	font: {
-		fontSize: "24dp",
+		fontSize: "20dp",
 		fontFamily: "HelveticaNeue"
 	},
 	borderWidth: 1, borderRadius: "15dp", borderColor:"#ccc"

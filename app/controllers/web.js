@@ -18,8 +18,7 @@ var modal = CONFIG.modal || false;
 
 var currentUrl = "";
 
-//TODO: Need a Title
-//TODO: Add Action Button to navigation
+
 //TODO: Autoclose the window on success?
 
 /**
@@ -39,12 +38,14 @@ $.init = function() {
 
 		if (CONFIG.url) {
 			$.webview.url = CONFIG.url;
+			$.address.value = CONFIG.url;
 			$.webview.scalesPageToFit = true;
 			$.webview.willHandleTouches = false;
 
 			$.initToolbar();
 		} else if (CONFIG.file) {
 			$.webview.url = "/data/" + CONFIG.file;
+			$.address.value = $.webview.url;
 		} else {
 			$.webview.html = CONFIG.html;
 		}
@@ -165,8 +166,6 @@ $.initToolbar = function() {
 		$.toolbar.visible = true;
 		$.container.bottom = "44dp";
 
-		//TODO: Convert to % for width
-
 		var width = Math.floor(APP.Device.width / 4);
 
 		$.containerBack.width = width + "dp";
@@ -207,9 +206,7 @@ function doClick(e) {
 
 function doConvert(e) {
 	try {
-		//TODO: Do we remove this child?
-		//APP.removeChild(false);
-
+		
 		//Create a window for options to display to the user
 		var win = Alloy.createController('pdfoptions', {
 			url : $.webview.url

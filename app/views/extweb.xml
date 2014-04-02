@@ -19,7 +19,7 @@
 				</View>
 			</View>
 			<View id="containerAction" class="containerwrapper">
-				<ImageView id="Action" class="button" image="/images/safari.png" />
+				<ImageView id="Action" class="button" image="/images/pdf-grey.png" />
 			</View>
 		</View>
 	</View>

@@ -72,10 +72,13 @@ $.setBackgroundColor = function(_color) {
 	$.Wrapper.backgroundColor = _color;
 
 	// Checks the brightness of the background color, sets color of icons/text
-	if(hexToHsb(_color).b < 65) {
+	if(hexToHsb(_color).b < 90) {
 		theme = "white";
 	} else {
 		theme = "black";
+	}
+	if($.title){
+		$.title.color = theme == "white" ? "#FFF" : "#000";
 	}
 };
 

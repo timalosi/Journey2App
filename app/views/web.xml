@@ -21,7 +21,7 @@
 				<ImageView id="Stop" class="button" image="/images/stop.png" />
 			</View>
 			<View id="containerAction" class="container">
-				<ImageView id="Action" class="button" image="/images/safari.png" />
+				<ImageView id="Action" class="button" image="/images/pdf-grey.png" />
 			</View>
 		</View>
 	</View>

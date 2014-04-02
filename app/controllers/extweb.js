@@ -19,8 +19,6 @@ var INDEX = 0;
 var currentUrl = "";
 
 //TODO: Up and down arrows throw an error
-//TODO: New Action Icon
-//TODO: PDF Icon
 
 /**
  * Initializes the controller

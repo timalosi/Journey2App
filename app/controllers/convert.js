@@ -10,8 +10,6 @@ var APP = require("core");
 var FileManager = require("FileManager");
 var FX = require("functions");
 
-//TODO: Add button to go to documents screen if there are files
-
 var CONFIG = arguments[0] || {};
 var modal = CONFIG.modal || false;
 

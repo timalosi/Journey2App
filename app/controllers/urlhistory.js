@@ -17,8 +17,6 @@ var SELECTED;
 //var refreshLoading = false;
 //var refreshEngaged = false;
 
-//TODO: Icons at Header
-//TODO: blank url when duplicated?
 //TODO: Up and Down arrows crashing
 
 /**
@@ -148,8 +146,6 @@ $.populate = function() {
 				}).getView();
 				rows.push(row);
 			}
-		}else{
-			//TODO: Do we need to do anything if there is no history?
 		}
 		$.container.setData(rows);
 		

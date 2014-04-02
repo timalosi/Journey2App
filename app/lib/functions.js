@@ -26,7 +26,6 @@ exports.preInit = function() {
 exports.postInit = function() {
 	try {
 		//create or get reference to the directory
-		//TODO: Check Arguments
 		Ti.App.addEventListener("resumed", exports.resumeObserver);
 		//Log Launch Analytics
 		AEAnalyticsEngine.appLaunch((ENV_DEV) ? 'dev' : 'prod');
@@ -39,12 +38,29 @@ exports.postInit = function() {
 };
 
 exports.resumeObserver = function(e) {
-	//TODO: Analytics
+	
 	var args = Ti.App.getArguments();
 
 	try {
 
 		AEAnalyticsEngine.appResumed();
+
+		exports.processArguments();
+	} catch(err) {
+		handleError({
+			f : 'functions.resumeObserver',
+			err : err
+		});
+	}
+};
+
+exports.processArguments = function() {
+	
+	var args = Ti.App.getArguments();
+
+	try {
+		
+		var args = Ti.App.getArguments();
 
 		if (args.url !== undefined) {
 			var url = args.url;
@@ -53,8 +69,6 @@ exports.resumeObserver = function(e) {
 			var components = args.url.split('/');
 			var len = components.length;
 			var parameters = {};
-
-			//TODO: refresh document rows
 
 			if (len > 0) {
 				//Get the protocol and decide what to do
@@ -69,7 +83,7 @@ exports.resumeObserver = function(e) {
 						break;
 				}
 				var APP = require("core");
-				//TODO: addChild syntax
+				//Open up web page
 				APP.addChild("web", {
 					url : url,
 					isChild : true
@@ -83,7 +97,7 @@ exports.resumeObserver = function(e) {
 		}
 	} catch(err) {
 		handleError({
-			f : 'functions.resumeObserver',
+			f : 'functions.processArguments',
 			err : err
 		});
 	}
@@ -175,12 +189,15 @@ exports.filesExist = function() {
 		return (results.fileCount > 0) ? true : false;
 	} catch(err) {
 		handleError({
-			f : 'functions.postInit',
+			f : 'functions.filesExists',
 			err : err
 		});
 	}
 };
-
+/**
+ * Display an dialog box with some information about the error
+ * @param {Object}	f: Function name and err: error object
+ */
 var handleError = function(_args) {
 	/*
 	 * _args.f = string name of function

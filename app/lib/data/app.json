@@ -17,7 +17,7 @@
 			"secret": "s-RDQejhRwmx-j4DCaXPMw"
 		},
 		"colors": {
-			"primary": "#ff9900",
+			"primary": "#df1505",
 			"secondary": "#569BBE"
 		},
 		"useSlideMenu": true
@@ -31,7 +31,7 @@
 			"heading": "Translate Documents",
 			"text": "translate documents",
 			"type": "documents",
-			"image": "chariti",
+			"image": "pdfdoc",
 			"tabletSupport": true
 		}, {
 			"titleid": "titleURLHistory",
@@ -47,7 +47,7 @@
 			"heading": "Convert to PDF",
 			"text": "convert",
 			"type": "convert",
-			"image": "photo",
+			"image": "gopdf",
 			"tabletSupport": false
 		}
 	],

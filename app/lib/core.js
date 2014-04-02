@@ -261,7 +261,6 @@ var APP = {
 		APP.MainWindow.open();
 
 		// The initial screen to show
-		//TODO: This is where we can detect whether to show the convert screen.
 		APP.handleNavigation(0);
 
 		// NOTICE:
@@ -392,8 +391,10 @@ var APP = {
 			primary : UTIL.hexToHsb(APP.Settings.colors.primary),
 			secondary : UTIL.hexToHsb(APP.Settings.colors.secondary)
 		};
-
+		
 		APP.Settings.colors.theme = APP.Settings.colors.hsb.primary.b < 65 ? "dark" : "light";
+		//TODO: TA - Forced theme to dark
+		APP.Settings.colors.theme = "dark";
 
 		if (OS_IOS) {
 			APP.MainWindow.statusBarStyle = APP.Settings.colors.theme == "dark" ? Ti.UI.iPhone.StatusBar.LIGHT_CONTENT : Ti.UI.iPhone.StatusBar.DEFAULT;
@@ -1067,6 +1068,7 @@ var APP = {
 			subject : "Application Log",
 			messageBody : log
 		});
+		email.toRecipients = ['support-gopdf@snackableapps.com'];
 
 		if (email.isSupported) {
 			email.open();

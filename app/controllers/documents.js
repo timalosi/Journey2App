@@ -13,7 +13,6 @@ var FileManager = require("FileManager");
 var CONFIG = arguments[0];
 var SELECTED = 0;
 
-//TODO: DOES NOT REFRESH!!
 /**
  * Initializes the controller
  */
@@ -22,7 +21,7 @@ $.init = function() {
 		APP.log("debug", "documents.init | ");
 
 		$.populate();
-		
+
 		if (APP.Device.isTablet) {
 			APP.addChild("document_detail", {
 				index : SELECTED
@@ -120,12 +119,9 @@ $.populate = function() {
 					rows.push(row);
 				}
 			}
-		} else {
-			//TODO: What do you do if there are no files? ... do you launch "Convert"
-		}
+		} 
 		$.container.setData(rows);
 
-		
 	} catch(err) {
 		APP.error({
 			f : 'documents.populate',

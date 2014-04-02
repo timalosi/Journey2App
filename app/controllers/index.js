@@ -10,9 +10,6 @@
  * @uses functions
  */
 
-//TODO: Launch Convert screen if no documents
-//TODO: Analytics
-
 // Pull in the core APP singleton
 var APP = require("core");
 var FX = require("functions");
@@ -35,3 +32,5 @@ if(!FX.filesExist()){
 	APP.closeSettings();
 		APP.handleNavigation(2);
 } 
+//Check for Arguments Passed
+FX.processArguments();
