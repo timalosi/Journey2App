@@ -1,6 +1,6 @@
 /**
  * Controller for the menu list screen
- * 
+ *
  * @class Controllers.menu
  * @uses core
  */
@@ -20,13 +20,13 @@ $.init = function() {
 
 	$.NavigationBar.setBackgroundColor(APP.Settings.colors.primary);
 
-	if(CONFIG.isChild === true) {
+	if (CONFIG.isChild === true) {
 		$.NavigationBar.showBack(function(_event) {
 			APP.removeChild();
 		});
 	}
 
-	if(APP.Settings.useSlideMenu) {
+	if (APP.Settings.useSlideMenu) {
 		$.NavigationBar.showMenu(function(_event) {
 			APP.toggleMenu();
 		});
@@ -42,14 +42,13 @@ $.init = function() {
  * @param {Object} _data The returned data
  */
 $.handleData = function(_data) {
-	APP.log("debug", "menu.handleData");
 
 	var rows = [];
 
-	for(var i = 0, x = _data.length; i < x; i++) {
+	for (var i = 0, x = _data.length; i < x; i++) {
 		var row = Alloy.createController("menu_row", {
-			title: _data[i].title,
-			icon: "/icons/" + _data[i].image + ".png"
+			title : _data[i].title,
+			icon : "/icons/" + _data[i].image + ".png"
 		}).getView();
 
 		_data[i].isChild = true;

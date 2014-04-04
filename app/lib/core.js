@@ -1012,7 +1012,7 @@ var APP = {
 	 * @param {String} _severity A severity type (debug, error, info, log, trace, warn)
 	 * @param {String} _text The text to log
 	 */
-	log : function(_severity, _text) {
+		log : function(_severity, _text) {
 		switch(_severity.toLowerCase()) {
 			case "debug":
 				Ti.API.debug(_text);

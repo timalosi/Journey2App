@@ -92,7 +92,7 @@
 },
 //Classes
 ".helptitle[formFactor=handheld]": {
-	top: "15dp",
+	top: "10dp",
 	left: "15dp",
 	right: "15dp",
 	height: Ti.UI.SIZE,
@@ -116,7 +116,7 @@
 	color: "#000"
 },
 ".help[formFactor=handheld]": {
-	top: "15dp",
+	top: "10dp",
 	left: "15dp",
 	right: "15dp",
 	height: Ti.UI.SIZE,

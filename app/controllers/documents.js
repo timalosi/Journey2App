@@ -57,8 +57,6 @@ $.init = function() {
 
 function doTableviewClick(e) {
 	try {
-		APP.log("debug", "documents.doTableviewClick.e | " + JSON.stringify(e));
-
 		var path = e.row.path;
 		var index = e.row.index;
 
@@ -84,7 +82,6 @@ function doTableviewClick(e) {
 
 function doTableviewDelete(e) {
 	try {
-		APP.log("debug", "documents.doTableviewDelete.e | " + JSON.stringify(e));
 		var path = e.rowData.path;
 		var fm = new FileManager();
 		fm.deleteFile(path);
@@ -103,11 +100,9 @@ $.populate = function() {
 		var results = fm.ls(Alloy.Globals.directoryPath);
 		var docs = results.files;
 
-		APP.log("debug", "documents.populate | " + JSON.stringify(docs));
 		var rows = [];
 		if (docs.length > 0) {
 			for (var i in docs) {
-				APP.log("debug", "documents.populate.document | " + JSON.stringify(docs[i]));
 				if (docs[i].isFile === true && docs[i].extension === "pdf") {
 					var row = Alloy.createController("documents_row", {
 						path : docs[i].nativePath,
@@ -119,7 +114,7 @@ $.populate = function() {
 					rows.push(row);
 				}
 			}
-		} 
+		}
 		$.container.setData(rows);
 
 	} catch(err) {
@@ -132,7 +127,6 @@ $.populate = function() {
 
 $.refresh = function(e) {
 	try {
-		APP.log("debug", "documents.refresh.e | " + JSON.stringify(e));
 		$.populate();
 	} catch(err) {
 		APP.error({

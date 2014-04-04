@@ -64,7 +64,7 @@ $.init = function() {
 				animated : false
 			});
 		});
-		
+
 		Ti.App.addEventListener("APP.screen_change", $.refresh);
 	} catch(err) {
 		APP.error({
@@ -84,24 +84,22 @@ $.handleNavigation = function(_addarrows) {
 			var navigation = Alloy.createWidget("com.mcongrove.detailNavigation", null, {
 				color : APP.Settings.colors.theme == "dark" ? "white" : "black",
 				down : function(_event) {
-					APP.log("debug", "document_detail @next");
 					if (INDEX == DOCS.length - 1) {
 						//Last document
 						INDEX = 0;
 					} else {
-						INDEX += 1;
+						INDEX = (INDEX + 1) * 1;
 					}
 					$.updateIndex(INDEX);
 
 				},
 				up : function(_event) {
-					APP.log("debug", "document_detail @previous");
-
+					
 					if (INDEX == 0) {
 						//First document
 						INDEX = DOCS.length - 1;
 					} else {
-						INDEX -= 1;
+						INDEX = (INDEX - 1) * 1;
 					}
 					$.updateIndex(INDEX);
 				}
@@ -150,8 +148,7 @@ $.populate = function() {
 				DOCS = DOCS.concat(paths);
 				NAMES = NAMES.concat(filenames);
 			}
-			APP.log("debug", "document_detail.DOCS |" + JSON.stringify(DOCS));
-
+			
 			// Confirm that Quicklook is supported on this device
 			if (!Quicklook.isSupported()) {
 				error = 'iOS 4.0 or greater is required for Quicklook.';

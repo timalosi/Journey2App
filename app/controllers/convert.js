@@ -46,7 +46,6 @@ $.init = function() {
 function doClick(e) {
 	try {
 		var url = $.address.value;
-		APP.log("debug", "convert.doClick.url:= | " + url);
 		if (url.indexOf("://") == -1) {
 			url = "http://" + url;
 		}

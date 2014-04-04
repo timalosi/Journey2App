@@ -2,11 +2,11 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.snackableapps.gopdf</id>
     <name>Go Pdf</name>
-    <version>1.0</version>
-    <publisher>kids</publisher>
+    <version>1.0.0</version>
+    <publisher>Timothy Alosi</publisher>
     <url>http://www.snackableapps.com</url>
-    <description>not specified</description>
-    <copyright>2014 by kids</copyright>
+    <description>Create a PDF File from a web page</description>
+    <copyright>2014 by Timothy Alosi</copyright>
     <icon>Icon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>

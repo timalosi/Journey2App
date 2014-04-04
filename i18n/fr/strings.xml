@@ -12,22 +12,23 @@
 	<string name="application">Go PDF</string>
 	<string name="titlePDFDocuments">Documents PDF</string>
 	<string name="titleURLHistory">Histoire d'URL</string>
-	<string name="titleConvertToPDF">Convertir en PDF</string>
+	<string name="titleConvertToPDF">Enregistrer en PDF</string>
+	<string name="titleCreateAPDF">Créer un fichier PDF</string>
 	<string name="titleOpenInSafari">Ouvrir dans Safari</string>
 	<string name="titleConvertAPage">Convertir une page Web en PDF</string>
 	<string name="titleSettings">Réglages</string>
 	<string name="titlePDFFiles">Fichiers PDF</string>
 	<string name="titleHistory">Historique</string>
 	<string name="titleUnexpectedError">Erreur Inattendue</string>
-	<string name="titleGotoDocs">Mes Documents</string>
+	<string name="titleGotoDocs">Mes Documents PDF</string>
 	<string name="titleFileName">Nom du Fichier</string>
 	<string name="titleSaveToFilename">Entrez un nom de fichier pour le PDF</string>
 	<string name="textTypeOrPaste">Tapez ou collez une adresse Web</string>
 	<string name="titleEnterAddress">Entrez URL</string>
 	<string name="titlePaperType">Type de papier</string>
 	<string name="textConvertFromSafari">Pour convertir une page web directement depuis Safari:</string>
-	<string name="textPDFColon">Changer http:// soit pdf :// ou pdfhttp ://</string>
-	<string name="textPDFSColon">Changer https:// soit pdfs :// ou pdfhttps ://</string>
+	<string name="textPDFColon">Changer http:// soit pdf:// ou pdfhttp://</string>
+	<string name="textPDFSColon">Changer https:// soit pdfs:// ou pdfhttps://</string>
 	<string name="textDocumentsCreated">%d documents PDF créés!</string>
 	<string name="titleFileWarning">Ce fichier existe et sera remplacé!</string>
 </resources>

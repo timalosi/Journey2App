@@ -43,7 +43,7 @@
 			"tabletSupport": true
 		}, {
 			"title": "Convert to PDF",
-			"titleid" : "titleConvertToPDF",
+			"titleid" : "titleCreateAPDF",
 			"heading": "Convert to PDF",
 			"text": "convert",
 			"type": "convert",

@@ -22,15 +22,15 @@ APP.Tabs = $.Tabs;
 APP.SlideMenu = $.SlideMenu;
 
 //GoPDF App Specific Pre Init Function
-FX.preInit(); 
+FX.preInit();
 // Start the APP
 APP.init();
 //GoPDF App Specific Post Init Function
 FX.postInit();
 //Open Convert to PDF Screen if no PDF Files exist
-if(!FX.filesExist()){
+if (!FX.filesExist()) {
 	APP.closeSettings();
-		APP.handleNavigation(2);
-} 
+	APP.handleNavigation(2);
+}
 //Check for Arguments Passed
 FX.processArguments();

@@ -134,7 +134,7 @@ $.init = function() {
 		});
 
 		$.containerAction.addEventListener("click", doConvert);
-		
+
 		//Set App Wide Listeners
 		Ti.App.addEventListener("history_change", $.refresh);
 	} catch(err) {
@@ -156,8 +156,6 @@ $.handleData = function(_data) {
 	 * CONFIG.id = Display the URL from the collection
 	 */
 	try {
-		APP.log("debug", "extweb.handleData");
-
 		if (_data.id) {
 			//Get all the URLs to the array
 			var urlCollection = Alloy.Collections.url;
@@ -202,18 +200,24 @@ $.handleNavigation = function() {
 					//Last document
 					INDEX = 0;
 				} else {
-					INDEX += 1;
+					INDEX = (INDEX + 1) * 1;
 				}
-				$.webview.url = URLS[INDEX];
+				var url = URLS[INDEX];
+				if (url) {
+					$.webview.url = url;
+				}
 			},
 			up : function(_event) {
 				if (INDEX == 0) {
 					//First document
 					INDEX = URLS.length - 1;
 				} else {
-					INDEX -= 1;
+					INDEX = (INDEX - 1) * 1;
 				}
-				$.webview.url = URLS[INDEX];
+				var url = URLS[INDEX];
+				if (url) {
+					$.webview.url = url;
+				}
 			}
 		}).getView();
 

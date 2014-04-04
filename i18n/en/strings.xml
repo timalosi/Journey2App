@@ -12,14 +12,15 @@
 	<string name="application">Go PDF</string>
 	<string name="titlePDFDocuments">PDF Documents</string>
 	<string name="titleURLHistory">URL History</string>
-	<string name="titleConvertToPDF">Convert to PDF</string>
+	<string name="titleConvertToPDF">Save to PDF</string>
+	<string name="titleCreateAPDF">Create a PDF</string>
 	<string name="titleOpenInSafari">Open in Safari</string>
 	<string name="titleConvertAPage">Convert a Web Page to PDF</string>
 	<string name="titleSettings">Settings</string>
 	<string name="titlePDFFiles">PDF Files</string>
 	<string name="titleHistory">History</string>
 	<string name="titleUnexpectedError">Unexpected Error</string>
-	<string name="titleGotoDocs">My Documents</string>
+	<string name="titleGotoDocs">My PDF Documents</string>
 	<string name="titleFileName">File Name</string>
 	<string name="titleSaveToFilename">Enter file name for the PDF</string>
 	<string name="textTypeOrPaste">Type or paste a web address</string>

@@ -28,7 +28,8 @@ exports.postInit = function() {
 		//create or get reference to the directory
 		Ti.App.addEventListener("resumed", exports.resumeObserver);
 		//Log Launch Analytics
-		AEAnalyticsEngine.appLaunch((ENV_DEV) ? 'dev' : 'prod');
+		var vid = AEAnalyticsEngine.vid;
+		AEAnalyticsEngine.appLaunch((ENV_DEV) ? 'dev' : 'prod', vid);
 	} catch(err) {
 		handleError({
 			f : 'functions.postInit',
@@ -38,7 +39,7 @@ exports.postInit = function() {
 };
 
 exports.resumeObserver = function(e) {
-	
+
 	var args = Ti.App.getArguments();
 
 	try {
@@ -55,11 +56,11 @@ exports.resumeObserver = function(e) {
 };
 
 exports.processArguments = function() {
-	
+
 	var args = Ti.App.getArguments();
 
 	try {
-		
+
 		var args = Ti.App.getArguments();
 
 		if (args.url !== undefined) {

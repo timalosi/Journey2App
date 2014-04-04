@@ -43,7 +43,7 @@ $.init = function() {
 				APP.openSettings();
 			});
 		}
-		
+
 		if (APP.Device.isTablet && !SELECTED) {
 			if (URLS.length > 0) {
 				SELECTED = URLS[0].alloy_id;
@@ -74,7 +74,6 @@ $.init = function() {
 
 function doTableviewClick(e) {
 	try {
-		APP.log("debug", "urlhistory.doTableviewClick.e | " + JSON.stringify(e));
 		var item_id = e.rowData.id;
 		var index = e.row.index || 0;
 
@@ -112,7 +111,6 @@ function doTableviewClick(e) {
 
 function doTableviewDelete(e) {
 	try {
-		APP.log("debug", "urlhistory.doTableviewDelete.e | " + JSON.stringify(e));
 		var item_id = e.rowData.id;
 		var urlCollection = Alloy.Collections.url;
 		var urlItem = urlCollection.get(item_id);
@@ -131,12 +129,10 @@ $.populate = function() {
 		var urlCollection = Alloy.Collections.url;
 		urlCollection.fetch();
 		URLS = urlCollection.toJSON();
-		
-		APP.log("debug", "urlhistory.populate | " + JSON.stringify(URLS));
+
 		var rows = [];
 		if (URLS.length > 0) {
 			for (var i in URLS) {
-				APP.log("debug", "urls.populate.url | " + JSON.stringify(URLS[i]));
 				var row = Alloy.createController("urlhistory_row", {
 					id : URLS[i].alloy_id,
 					index : i,
@@ -148,7 +144,7 @@ $.populate = function() {
 			}
 		}
 		$.container.setData(rows);
-		
+
 	} catch(err) {
 		APP.error({
 			f : 'urlhistory.populate',
@@ -159,7 +155,6 @@ $.populate = function() {
 
 $.refresh = function(e) {
 	try {
-		APP.log("debug", "urlhistory.refresh.e | " + JSON.stringify(e));
 		$.populate();
 	} catch(err) {
 		APP.error({
