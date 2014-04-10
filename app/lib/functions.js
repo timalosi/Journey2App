@@ -145,7 +145,7 @@ exports.convertToPDF = function(_extWebView, _filename, _paper) {
 			filename : filename,
 			path : file.nativePath,
 			directory : Alloy.Globals.directoryPath,
-			papersize : 'letter'
+			papersize : paper
 		});
 
 		var now = new Date().toLocaleString();
